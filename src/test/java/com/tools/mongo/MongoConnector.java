@@ -2,6 +2,7 @@ package com.tools.mongo;
 
 import java.net.UnknownHostException;
 
+import org.apache.log4j.Logger;
 import org.bson.Document;
 
 import com.mongodb.MongoClient;
@@ -9,8 +10,11 @@ import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 import com.tools.constants.MongoConstants;
 
+
+
 public class MongoConnector {
 
+	final static Logger logger = Logger.getLogger(MongoConnector.class);
 	public static MongoClient mongoClient;
 	public static MongoDatabase workingDB;
 	ServerAddress serverAddress = new ServerAddress();
@@ -33,7 +37,7 @@ public class MongoConnector {
 	
 	public static void cleanDatabase(String databaseName){
 		mongoClient.dropDatabase(databaseName);
-		System.out.println("Database " + databaseName + " cleaned.");
+		logger.info("Database " + databaseName + " cleaned.");
 	}
 	
 	public static void cleanCollection(String databaseName, String collectionName){

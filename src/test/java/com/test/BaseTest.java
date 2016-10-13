@@ -47,7 +47,8 @@ public class BaseTest {
 		
 		MongoConnector.cleanDatabase(MongoConstants.CONFIG);
 		MongoWriter.saveBaseTestConfigs(host, language);
-		logger.info("Host: " + host + "\n Language: " + language);
+		logger.info("Host: " + host);
+		logger.info("Language: " + language);
 		
 		Properties properties = new Properties();
 		InputStream input = null;
