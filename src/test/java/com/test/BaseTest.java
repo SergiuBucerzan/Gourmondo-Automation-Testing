@@ -1,13 +1,19 @@
 package com.test;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 
+import com.tools.constants.ConfigConstants;
 import com.tools.constants.MongoConstants;
+import com.tools.constants.ProjectResourcesConstants;
 import com.tools.mongo.MongoConnector;
+import com.tools.mongo.writer.MongoWriter;
 
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.ManagedPages;
@@ -26,6 +32,11 @@ public class BaseTest {
 	
 	@Before
 	public void startup() throws IOException {
+		
+		String host = ConfigConstants.GOURMONDO_UK_TEST;
+		String language = ConfigConstants.EN;
+		String url = "";
+		
 		try{
 			mongoConnector = new MongoConnector();
 			logger.info("Connecting to mongo database...");
@@ -35,6 +46,28 @@ public class BaseTest {
 		}
 		
 		MongoConnector.cleanDatabase(MongoConstants.CONFIG);
+		MongoWriter.saveBaseTestConfigs(host, language);
+		logger.info("Host: " + host + "\n Language: " + language);
+		
+		Properties properties = new Properties();
+		InputStream input = null;
+		try {
+			input = new FileInputStream(ProjectResourcesConstants.SERVER + "config.properties");
+			properties.load(input);
+			url = properties.getProperty("baseUrl");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if (input != null)
+				try {
+					input.close();
+				}catch (IOException e){
+					e.printStackTrace();
+				}
+		}
+		
+		MongoWriter.saveGourmondoURL(url);
+		logger.info("Url: " + url);
 	}
 	
 	
