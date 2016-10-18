@@ -12,7 +12,7 @@ public class MongoConstants {
 		public static final String GOURMONDO_SHOP = "gourmondoShop";
 		
 		//KEYS
-		public static final String GOURMONDO_URL = "gourmondoUrl";
+		public static final String URL = "url";
 		public static final String HOST = "host";
 		public static final String LANGUAGE = "language";
 }
