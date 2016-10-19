@@ -20,7 +20,7 @@ public class MongoWriter extends MongoConnector{
 		MongoCollection<Document> dbCollection = workingDB.getCollection(MongoConstants.GOURMONDO_SHOP);
 		Document document = new Document();
 		
-		document.put(MongoConstants.GOURMONDO_URL, url);
+		document.put(MongoConstants.URL, url);
 		dbCollection.insertOne(document);
 		
 	}

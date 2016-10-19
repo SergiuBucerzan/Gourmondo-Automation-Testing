@@ -23,7 +23,7 @@ public class MongoReader extends MongoConnector{
 		try  {
 			while(cursor.hasNext()){
 				document = cursor.next();
-				url = checkField(document, MongoConstants.GOURMONDO_URL);
+				url = checkField(document, MongoConstants.URL);
 				if (!url.isEmpty()){
 					break;
 				}
