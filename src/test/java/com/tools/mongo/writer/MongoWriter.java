@@ -32,9 +32,6 @@ public class MongoWriter extends MongoConnector{
 		
 		document.put(MongoConstants.HOST, host);
 		document.put(MongoConstants.LANGUAGE, language);
-		dbCollection.insertOne(document);
-		
+		dbCollection.insertOne(document);		
 	}
-	
-	
 }
