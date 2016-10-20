@@ -1,6 +1,7 @@
 package com.steps;
 
 import com.pages.frontend.HomePage;
+import com.pages.frontend.ProductListingPage;
 import com.pages.frontend.SearchResultsPage;
 
 import net.thucydides.core.annotations.Step;
@@ -24,5 +25,9 @@ public class AbstractSteps extends ScenarioSteps{
 	
 	public SearchResultsPage getSearchResultsPage() {
 		return getPages().currentPageAt(SearchResultsPage.class);
+	}
+	
+	public ProductListingPage getProductListingPage() {
+		return getPages().currentPageAt(ProductListingPage.class);
 	}
 }
