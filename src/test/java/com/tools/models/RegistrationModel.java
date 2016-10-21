@@ -1,12 +1,20 @@
 package com.tools.models;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import com.tools.constants.EmailConstants;
+import com.tools.utils.FieldGenerator;
+import com.tools.utils.FieldGenerator.TypeOfString;
+
 public class RegistrationModel {
 
 	private String salutation = "";
 	private String firstName = "";
 	private String lastName = "";	
 	private String emailAddress = "";
-	private String day = "";
+	private String day;
 	private String month = "";
 	private String year = "";
 	private String password = "";
@@ -74,4 +82,30 @@ public class RegistrationModel {
 		this.customerId = customerId;
 	}
 	
+	
+	//random data generation for input fields
+	
+	public void setSalutation() {
+		Random random = new Random();
+		List<String> salutationList = new ArrayList<>();
+		salutationList.add("ms");
+		salutationList.add("mrs");
+		salutation = salutationList.get(random.nextInt(salutationList.size()));	
+	}
+	
+	public void setFirstName() {
+		firstName = FieldGenerator.generateStringValue(6, TypeOfString.ALPHA_CAPS);
+	}
+	
+	public void setLastName() {
+		lastName = FieldGenerator.generateStringValue(6, TypeOfString.ALPHA_CAPS);
+	}
+	
+	public void setEmailAddress() {
+		emailAddress = FieldGenerator.generateStringValue(6, TypeOfString.EMAIL) + "@" + EmailConstants.MAILINATOR;
+	}
+	
+	public void setPassword() {
+		password = FieldGenerator.generateStringValue(8, TypeOfString.ALPHANUMERIC);
+	}
 }
