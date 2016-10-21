@@ -1,5 +1,8 @@
 package com.pages;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -10,9 +13,16 @@ import net.serenitybdd.core.pages.PageObject;
 
 public class AbstractPage extends PageObject {
 
+	final static Logger logger = Logger.getLogger(AbstractPage.class);
+	
 	public WebElement waitForElementByCssLocator(String cssLocator) {
 		return (new WebDriverWait(getDriver(), 20))
 				.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(cssLocator)));
+	}
+	
+	public List<WebElement> waitForElementsByCssLocator(String cssLocator) {
+		return (new WebDriverWait(getDriver(), 20))
+				.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector(cssLocator)));
 	}
 
 	public void scrollToPageBottom() {
@@ -32,7 +42,7 @@ public class AbstractPage extends PageObject {
 			}
 			// System.out.println("wait 1");
 			response = String.valueOf(((JavascriptExecutor) getDriver()).executeScript("return document.readyState"));
-			System.out.println("response: " + response);
+			logger.info("response: " + response);
 			retry++;
 		} while (retry <= 4 && response.equals("complete") != true);
 	}
