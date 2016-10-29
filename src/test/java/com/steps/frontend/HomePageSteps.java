@@ -24,6 +24,11 @@ public class HomePageSteps extends AbstractSteps {
 	}
 	
 	@Step
+	public void clickLogin() {
+		getHomePage().login();
+	}
+	
+	@Step
 	public void inputKeyword(String keyword) {
 		getHomePage().inputKeyword(keyword);
 	}

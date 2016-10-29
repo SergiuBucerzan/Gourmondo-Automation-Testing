@@ -23,5 +23,15 @@ public class LoginPage extends AbstractPage {
 	private WebElementFacade createAccountButton;
 	
 	
+	public void clickLoginButton() {
+		loginButton.click();
+	}
 	
+	public void clickForgotPasswordLink() {
+		forgotPasswordLink.click();
+	}
+	
+	public void clickCreateAccountButton() {
+		createAccountButton.click();
+	}
 }

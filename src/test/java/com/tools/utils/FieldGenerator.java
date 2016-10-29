@@ -1,5 +1,8 @@
 package com.tools.utils;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import com.mifmif.common.regex.Generex;
 
 public class FieldGenerator {
@@ -53,4 +56,25 @@ public class FieldGenerator {
 		
 		return random;
 	}
+	
+	public static String getRandomDate() {
+		String date = "";
+		  	GregorianCalendar gc = new GregorianCalendar();
+
+		  		//set random year
+		        int year = randBetween(1926, 1997);
+		        gc.set(Calendar.YEAR, year);
+
+		        //set random day of year
+		        int dayOfYear = randBetween(1, gc.getActualMaximum(Calendar.DAY_OF_YEAR));
+		        gc.set(Calendar.DAY_OF_YEAR, dayOfYear);
+		   
+		        //generate date mai sergiu
+		        date = gc.get(Calendar.DAY_OF_MONTH) + "-" + gc.get(Calendar.MONTH) + "-" + gc.get(Calendar.YEAR);
+		       
+		        return date;
+		    }
+	public static int randBetween(int start, int end) {
+		return start + (int)Math.round(Math.random() * (end - start));
+		    }
 }
