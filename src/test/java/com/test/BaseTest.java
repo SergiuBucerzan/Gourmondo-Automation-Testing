@@ -34,7 +34,7 @@ public class BaseTest {
 	public void startup() throws IOException {
 		
 		String host = ConfigConstants.GOURMONDO_UK_TEST;
-		String language = ConfigConstants.EN;
+		String language = ConfigConstants.UK;
 		String url = "";
 		
 		try{

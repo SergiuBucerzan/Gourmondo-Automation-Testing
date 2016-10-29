@@ -12,6 +12,7 @@ import org.junit.Assert;
 
 import com.pages.AbstractPage;
 import com.tools.models.ProductModel;
+import com.tools.mongo.reader.MongoReader;
 import com.tools.utils.StringUtils;
 
 import net.serenitybdd.core.annotations.findby.By;
@@ -81,7 +82,7 @@ public class ProductListingPage extends AbstractPage{
 	public void validatePopupSuccessMessage() {
 		Assert.assertTrue("Pop up displayed.", successPopup.isVisible());
 		Assert.assertTrue("Product appear to be available but has no stock.", successPopup.getText().contentEquals("Added to cart"));
-		waitABit(4000);
+		waitABit(5000);
 	}
 
 }
