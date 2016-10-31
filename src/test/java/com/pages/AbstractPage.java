@@ -27,7 +27,7 @@ public class AbstractPage extends PageObject {
 
 	public void scrollToPageBottom() {
 		((JavascriptExecutor) getDriver()).executeScript("window.scrollBy(0,document.body.scrollHeight)");
-		waitABit(10000);
+		waitABit(5000);
 	}
 
 	public void waitForPageToLoad() {

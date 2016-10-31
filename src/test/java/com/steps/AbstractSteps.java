@@ -1,10 +1,12 @@
 package com.steps;
 
+import com.pages.frontend.CartPage;
 import com.pages.frontend.HomePage;
 import com.pages.frontend.LoginPage;
-import com.pages.frontend.RegistrationPage;
 import com.pages.frontend.ProductListingPage;
+import com.pages.frontend.RegistrationPage;
 import com.pages.frontend.SearchResultsPage;
+
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
@@ -40,5 +42,9 @@ public class AbstractSteps extends ScenarioSteps{
 	
 	public ProductListingPage getProductListingPage() {
 		return getPages().currentPageAt(ProductListingPage.class);
+	}
+	
+	public CartPage getCartPAge() {
+		return getPages().currentPageAt(CartPage.class);
 	}
 }

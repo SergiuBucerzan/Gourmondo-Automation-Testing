@@ -12,7 +12,6 @@ import org.junit.Assert;
 
 import com.pages.AbstractPage;
 import com.tools.models.ProductModel;
-import com.tools.mongo.reader.MongoReader;
 import com.tools.utils.StringUtils;
 
 import net.serenitybdd.core.annotations.findby.By;

@@ -52,5 +52,10 @@ public class HomePageSteps extends AbstractSteps {
 	public void confirmAge() {
 		getHomePage().confirmAge();
 	}
+	
+	@Step
+	public void goToCart() {
+		getHomePage().goToCart();
+	}
 
 }
