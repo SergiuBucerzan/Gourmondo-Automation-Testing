@@ -2,25 +2,27 @@ package com.steps.frontend;
 
 import com.pages.frontend.HomePage;
 import com.steps.AbstractSteps;
-import com.tools.models.RegistrationModel;
+import com.tools.models.RegistrationFormModel;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
 
-public class RegistrationSteps extends AbstractSteps {
+public class CustomerRegistrationSteps extends AbstractSteps {
 
 	private static final long serialVersionUID = 1L;
 	
 	@StepGroup
-	public void fillCustomerRegistrationForm(RegistrationModel registrationModel) {
-		selectSalutation(registrationModel.getSalutation());
-		inputFirstName(registrationModel.getFirstName());
-		inputLastName(registrationModel.getLastName());
-		inputEmailAddress(registrationModel.getEmailAddress());
-		//birthday
-		inputPassword(registrationModel.getPassword());
-		inputConfirmationPassword(registrationModel.getPassword());
+	public void fillCustomerRegistrationForm(RegistrationFormModel registrationFormModel) {
+		selectSalutation(registrationFormModel.getSalutation());
+		inputFirstName(registrationFormModel.getFirstName());
+		inputLastName(registrationFormModel.getLastName());
+		inputEmailAddress(registrationFormModel.getEmailAddress());
+		selectDay(registrationFormModel.getDay());
+		selectMonth(registrationFormModel.getMonth());
+		selectYear(registrationFormModel.getYear());
+		inputPassword(registrationFormModel.getPassword());
+		inputConfirmationPassword(registrationFormModel.getPassword());
 		clickTermsAndConditionsCheckbox();
-		clickRegisterAndContinueButton();
+//		clickRegisterAndContinueButton();
 	}
 	
 	@Step
@@ -45,7 +47,18 @@ public class RegistrationSteps extends AbstractSteps {
 	
 	//	birthday
 	@Step
-	public void setBirthday(String birthday) {
+	public void selectDay(String day) {
+		getRegistrationPage().selectDay(day);
+	}
+	
+	@Step
+	public void selectMonth(String month) {
+		getRegistrationPage().selectMonth(month);
+	}
+	
+	@Step
+	public void selectYear(String year) {
+		getRegistrationPage().selectYear(year);
 	}
 
 	@Step
@@ -55,7 +68,7 @@ public class RegistrationSteps extends AbstractSteps {
 	
 	@Step
 	public void inputConfirmationPassword(String password) {
-		getRegistrationPage().inputPassword(password);
+		getRegistrationPage().inputConfirmationPassword(password);
 	}
 	
 	@Step
@@ -72,4 +85,6 @@ public class RegistrationSteps extends AbstractSteps {
 	public void clickRegisterAndContinueButton() {
 		getRegistrationPage().clickRegisterButton();
 	}
+	
+	
 }

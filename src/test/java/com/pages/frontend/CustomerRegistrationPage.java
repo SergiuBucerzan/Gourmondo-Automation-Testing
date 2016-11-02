@@ -6,16 +6,16 @@ import java.util.Random;
 import org.openqa.selenium.WebElement;
 
 import com.pages.AbstractPage;
-import com.tools.models.RegistrationModel;
+import com.tools.models.RegistrationFormModel;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
 
-public class RegistrationPage extends AbstractPage {
+public class CustomerRegistrationPage extends AbstractPage {
 	
-	@FindBy(css = "button[type='button']") 
+	@FindBy(css = "div.btn-group")
 	private WebElementFacade salutation;
 	
 	@FindBy(css = "input#registerClientForm-firstName")
@@ -49,14 +49,21 @@ public class RegistrationPage extends AbstractPage {
 	private WebElementFacade newsletterSubscriptionCheckbox;
 	
 	// verify css locator
-	@FindBy(css = "button[type='submit']")
+	@FindBy(css = "div.register-form-wrapper div.submit-button button")
 	private WebElementFacade registerAndContinueButton;
 	
 	
 	
 	
 	public void selectSalutation(String gender) {
-		salutation.sendKeys(gender);
+		salutation.click();
+		List<WebElementFacade> salutationList = salutation.thenFindAll(By.cssSelector("div.dropdown-menu ul li a"));
+		for (WebElementFacade item : salutationList) {
+			if (item.getText().trim().contentEquals(gender)) {
+				item.click();				
+				break;
+			}				
+		}
 	}
 	
 	public void inputFirstName(String firstName) {
@@ -71,16 +78,34 @@ public class RegistrationPage extends AbstractPage {
 		emailAddressInput.sendKeys(firstName);
 	}
 	
-	public void selectBirthdayDay(String day) {
-		birthdayDay.sendKeys(day);
+	public void selectDay(String day) {
+		birthdayDay.click();
+		List<WebElementFacade> dayList = birthdayDay.thenFindAll(By.cssSelector("ul li"));
+		for (WebElementFacade item : dayList) {
+			if (item.getAttribute("id").contentEquals(day)) {
+				item.click();
+			}				
+		}
 	}
 	
-	public void selectBirthdayMonth(String month) {
-		birthdayMonth.sendKeys(month);
+	public void selectMonth(String month) {
+		birthdayMonth.click();
+		List<WebElementFacade> monthList = birthdayMonth.thenFindAll(By.cssSelector("ul li"));
+		for (WebElementFacade item : monthList) {
+			if (item.getAttribute("id").contentEquals(month)) {
+				item.click();
+			}				
+		}
 	}
 	
-	public void selectBirthdayYear(String year) {
-		birthdayYear.sendKeys(year);
+	public void selectYear(String year) {
+		birthdayYear.click();
+		List<WebElementFacade> yearList = birthdayYear.thenFindAll(By.cssSelector("ul li"));
+		for (WebElementFacade item : yearList) {
+			if (item.getAttribute("id").contentEquals(year)) {
+				item.click();
+			}				
+		}
 	}
 	
 	public void inputPassword(String password) {

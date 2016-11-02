@@ -5,10 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 import com.tools.constants.EmailConstants;
+import com.tools.factory.RegistrationFormModelFactory;
 import com.tools.utils.FieldGenerator;
 import com.tools.utils.FieldGenerator.TypeOfString;
 
-public class RegistrationModel {
+public class RegistrationFormModel extends RegistrationFormModelFactory{
 
 	private String salutation = "";
 	private String firstName = "";
@@ -88,8 +89,8 @@ public class RegistrationModel {
 	public void setSalutation() {
 		Random random = new Random();
 		List<String> salutationList = new ArrayList<>();
-		salutationList.add("ms");
-		salutationList.add("mrs");
+		salutationList.add("Mr.");
+		salutationList.add("Mrs.");
 		salutation = salutationList.get(random.nextInt(salutationList.size()));	
 	}
 	

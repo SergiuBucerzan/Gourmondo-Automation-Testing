@@ -57,8 +57,7 @@ public class FieldGenerator {
 		return random;
 	}
 	
-	public static String getRandomDate() {
-		String date = "";
+	public static GregorianCalendar getRandomDate() {
 		  	GregorianCalendar gc = new GregorianCalendar();
 
 		  		//set random year
@@ -68,11 +67,8 @@ public class FieldGenerator {
 		        //set random day of year
 		        int dayOfYear = randBetween(1, gc.getActualMaximum(Calendar.DAY_OF_YEAR));
 		        gc.set(Calendar.DAY_OF_YEAR, dayOfYear);
-		   
-		        //generate date mai sergiu
-		        date = gc.get(Calendar.DAY_OF_MONTH) + "-" + gc.get(Calendar.MONTH) + "-" + gc.get(Calendar.YEAR);
 		       
-		        return date;
+		        return gc;
 		    }
 	public static int randBetween(int start, int end) {
 		return start + (int)Math.round(Math.random() * (end - start));

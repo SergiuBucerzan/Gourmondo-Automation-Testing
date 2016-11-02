@@ -5,8 +5,9 @@ import java.net.UnknownHostException;
 import org.bson.Document;
 
 import com.mongodb.client.MongoCollection;
+import com.tools.constants.ModelConstants;
 import com.tools.constants.MongoConstants;
-import com.tools.models.RegistrationModel;
+import com.tools.models.RegistrationFormModel;
 import com.tools.mongo.MongoConnector;
 
 public class MongoWriter extends MongoConnector{
@@ -36,11 +37,20 @@ public class MongoWriter extends MongoConnector{
 		dbCollection.insertOne(document);		
 	}
 	
-	public static void saveCustomerRegistrationForm(RegistrationModel registrationModel, String dbName) {
+	public static void saveCustomerRegistrationForm(RegistrationFormModel registrationFormModel, String dbName) {
 		workingDB = mongoClient.getDatabase(MongoConstants.CUSTOMER_DB);
 		MongoCollection<Document> dbCollection = workingDB.getCollection(MongoConstants.CUSTOMER_REGISTRATION_FORM);
 		Document document = new Document();
 		
+		document.put(ModelConstants.SALUTATION, registrationFormModel.getSalutation());
+		document.put(ModelConstants.FIRSTNAME, registrationFormModel.getFirstName());
+		document.put(ModelConstants.LASTNAME, registrationFormModel.getLastName());
+		document.put(ModelConstants.EMAIL_ADDRESS, registrationFormModel.getEmailAddress());
+		document.put(ModelConstants.BIRTHDAY_DAY, registrationFormModel.getDay());
+		document.put(ModelConstants.BIRTHDAY_MONTH, registrationFormModel.getMonth());
+		document.put(ModelConstants.BIRTHDAY_YEAR, registrationFormModel.getYear());
+		document.put(ModelConstants.PASSWORD, registrationFormModel.getPassword());
+		dbCollection.insertOne(document);
 		
 	}
 }
