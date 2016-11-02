@@ -23,6 +23,13 @@ public class LoginPage extends AbstractPage {
 	private WebElementFacade createAccountButton;
 	
 	
+	public void inputEmail(String email) {
+		emailInput.sendKeys(email);
+	}
+	
+	public void inputPassword(String password) {
+		passwordInput.sendKeys(password);
+	}
 	public void clickLoginButton() {
 		loginButton.click();
 	}
