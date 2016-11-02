@@ -21,7 +21,7 @@ public class CartPage extends AbstractPage {
 
 	@FindBy(css = "div#cartItems")
 	WebElementFacade cartItems;
-	
+
 	@FindBy(css = "button#checkoutButtonBottom")
 	WebElementFacade payButton;
 
@@ -54,7 +54,7 @@ public class CartPage extends AbstractPage {
 	public void goToHomePage() {
 		logo.click();
 	}
-	
+
 	public void pay() {
 		payButton.click();
 	}
@@ -62,6 +62,7 @@ public class CartPage extends AbstractPage {
 	public List<CartEntryModel> getCartProducts() {
 		List<CartEntryModel> productList = new ArrayList<>();
 		List<WebElementFacade> itemsList = cartItems.thenFindAll(By.cssSelector("div.product-entry"));
+		
 		for (WebElementFacade item : itemsList) {
 			CartEntryModel product = new CartEntryModel();
 			product.setName(item.find(By.cssSelector("div.product-details a")).getText());
@@ -74,11 +75,11 @@ public class CartPage extends AbstractPage {
 		}
 
 		return productList;
-
 	}
 
 	public double calculateCartTotal(List<CartEntryModel> productList) {
 		BigDecimal cartTotal = new BigDecimal(0.0);
+		
 		for (CartEntryModel product : productList) {
 			BigDecimal productPrice = new BigDecimal(Double.valueOf(product.getTotalPrice()));
 			cartTotal = cartTotal.add(productPrice);
