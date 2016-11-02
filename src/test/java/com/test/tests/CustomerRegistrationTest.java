@@ -10,8 +10,8 @@ import com.steps.frontend.LoginSteps;
 import com.steps.frontend.CustomerRegistrationSteps;
 import com.test.BaseTest;
 import com.tools.constants.MongoConstants;
-import com.tools.factory.RegistrationFormModelFactory;
-import com.tools.models.RegistrationFormModel;
+import com.tools.factory.CustomerAccountModelFactory;
+import com.tools.models.CustomerAccountModel;
 import com.tools.mongo.MongoConnector;
 import com.tools.mongo.reader.MongoReader;
 import com.tools.mongo.writer.MongoWriter;
@@ -32,11 +32,11 @@ public class CustomerRegistrationTest extends BaseTest{
 	public CustomerRegistrationSteps customerRegistrationSteps;
 	
 	@Steps
-	public RegistrationFormModel registrationFormModel;
+	public CustomerAccountModel registrationFormModel;
 	
 	@Before
 	public void setUp() {
-		RegistrationFormModelFactory registrationModelFactory = new RegistrationFormModelFactory();
+		CustomerAccountModelFactory registrationModelFactory = new CustomerAccountModelFactory();
 		registrationFormModel = registrationModelFactory.getRegistrationModel(); 		
 		MongoConnector.cleanDatabase(MongoConstants.CUSTOMER_DB);
 	}

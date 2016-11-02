@@ -7,7 +7,7 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.tools.constants.ModelConstants;
 import com.tools.constants.MongoConstants;
-import com.tools.models.RegistrationFormModel;
+import com.tools.models.CustomerAccountModel;
 import com.tools.mongo.MongoConnector;
 
 public class MongoWriter extends MongoConnector{
@@ -37,7 +37,7 @@ public class MongoWriter extends MongoConnector{
 		dbCollection.insertOne(document);		
 	}
 	
-	public static void saveCustomerRegistrationForm(RegistrationFormModel registrationFormModel, String dbName) {
+	public static void saveCustomerRegistrationForm(CustomerAccountModel registrationFormModel, String dbName) {
 		workingDB = mongoClient.getDatabase(MongoConstants.CUSTOMER_DB);
 		MongoCollection<Document> dbCollection = workingDB.getCollection(MongoConstants.CUSTOMER_REGISTRATION_FORM);
 		Document document = new Document();

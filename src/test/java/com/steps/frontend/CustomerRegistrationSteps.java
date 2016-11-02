@@ -2,7 +2,7 @@ package com.steps.frontend;
 
 import com.pages.frontend.HomePage;
 import com.steps.AbstractSteps;
-import com.tools.models.RegistrationFormModel;
+import com.tools.models.CustomerAccountModel;
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
 
@@ -11,7 +11,7 @@ public class CustomerRegistrationSteps extends AbstractSteps {
 	private static final long serialVersionUID = 1L;
 	
 	@StepGroup
-	public void fillCustomerRegistrationForm(RegistrationFormModel registrationFormModel) {
+	public void fillCustomerRegistrationForm(CustomerAccountModel registrationFormModel) {
 		selectSalutation(registrationFormModel.getSalutation());
 		inputFirstName(registrationFormModel.getFirstName());
 		inputLastName(registrationFormModel.getLastName());

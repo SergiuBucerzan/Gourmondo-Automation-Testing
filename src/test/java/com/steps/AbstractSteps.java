@@ -6,8 +6,8 @@ import com.pages.frontend.LoginPage;
 import com.pages.frontend.ProductListingPage;
 import com.pages.frontend.CustomerRegistrationPage;
 import com.pages.frontend.SearchResultsPage;
-import com.tools.factory.RegistrationFormModelFactory;
-import com.tools.models.RegistrationFormModel;
+import com.tools.factory.CustomerAccountModelFactory;
+import com.tools.models.CustomerAccountModel;
 
 
 import net.thucydides.core.annotations.Step;
