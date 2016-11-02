@@ -20,6 +20,7 @@ public class ProductListingSteps extends AbstractSteps{
 	}
 	
 	public List<WebElementFacade> getProductsFromListingPage() {
+		scrollToPageBottom();
 		return getProductListingPage().getProductsFromListingPage();
 	}
 	
@@ -43,6 +44,11 @@ public class ProductListingSteps extends AbstractSteps{
 	@Step
 	public void validatePopupSuccessMessage() {
 		getProductListingPage().validatePopupSuccessMessage();
+	}
+	
+	@Step
+	public void scrollToPageBottom(){
+		getProductListingPage().scrollToPageBottom();
 	}
 
 

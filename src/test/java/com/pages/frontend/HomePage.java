@@ -7,14 +7,9 @@ import org.apache.log4j.Logger;
 import org.openqa.selenium.support.FindBy;
 
 import com.pages.AbstractPage;
-import com.test.BaseTest;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.WebElementFacade;
-
-
-
-
 
 
 public class HomePage extends AbstractPage{
@@ -39,8 +34,15 @@ public class HomePage extends AbstractPage{
 	@FindBy (css = "div#colorbox span.yes")
 	WebElementFacade ageGate;
 	
+	@FindBy (css="div.miniCart a")
+	WebElementFacade miniCart;
+	
 	public void login() {
 		login.click();
+	}
+	
+	public void goToCart() {
+		miniCart.click();
 	}
 	
 	public void inputKeyword(String keyword) {
