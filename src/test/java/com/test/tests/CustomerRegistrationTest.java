@@ -44,7 +44,7 @@ public class CustomerRegistrationTest extends BaseTest{
 	@Test
 	public void registerNewCustomerTest() {
 		homePage.goToUrl(MongoReader.getGourmondoURL());
-		homePage.clickLogin();
+		homePage.goToLogin();
 		login.clickCreateAccount();
 		customerRegistrationSteps.fillCustomerRegistrationForm(registrationFormModel);
 		

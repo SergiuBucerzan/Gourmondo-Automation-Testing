@@ -28,21 +28,11 @@ public class HomePage extends AbstractPage{
 	@FindBy (id = "navbar")
 	WebElementFacade categoryContainer;
 	
-	@FindBy (css = "div.categories-listing")
-	WebElementFacade subcategoryContainer;
-	
 	@FindBy (css = "div#colorbox span.yes")
 	WebElementFacade ageGate;
 	
-	@FindBy (css="div.miniCart a")
-	WebElementFacade miniCart;
-	
-	public void login() {
+	public void goToLogin() {
 		login.click();
-	}
-	
-	public void goToCart() {
-		miniCart.click();
 	}
 	
 	public void inputKeyword(String keyword) {
@@ -63,19 +53,6 @@ public class HomePage extends AbstractPage{
 			category.click();
 		}else 
 			logger.info("No category found.");
-		
-	}
-	
-	public void getRandomSubCategory() {
-		subcategoryContainer.waitUntilVisible();
-		List<WebElementFacade> listOfSubCategories = subcategoryContainer.thenFindAll(By.cssSelector("div.title-wrapper a"));
-		Random random = new Random();
-		if (listOfSubCategories.size() > 0) {
-			WebElementFacade subcategory = listOfSubCategories.get(random.nextInt(listOfSubCategories.size()));
-			logger.info("Selected subcategory is: " + subcategory.getText());
-			subcategory.click();
-		}else 
-			logger.info("No subcategory found.");
 		
 	}
 	

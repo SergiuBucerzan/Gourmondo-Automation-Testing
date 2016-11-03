@@ -11,7 +11,7 @@ public class LoginSteps extends AbstractSteps {
 	private static final long serialVersionUID = 1L;
 	
 	@StepGroup
-	public void login(String url, CustomerAccountModel customerAccountModel) {
+	public void  login(String url, CustomerAccountModel customerAccountModel) {
 		goToUrl(url);
 		goToLogin();
 		inputEmail(customerAccountModel.getEmailAddress());
@@ -21,7 +21,7 @@ public class LoginSteps extends AbstractSteps {
 	
 	@Step
 	public void goToLogin() {
-		getHomePage().login();
+		getHomePage().goToLogin();
 	}
 	
 	@Step

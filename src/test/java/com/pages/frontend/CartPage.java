@@ -31,9 +31,6 @@ public class CartPage extends AbstractPage {
 	@FindBy(css = "button#remove-selected-items-button")
 	WebElementFacade deleteSelectedItemsButton;
 
-	@FindBy(css = "div.logo a")
-	WebElementFacade logo;
-
 	public void selectProductsFromCart() {
 		if (deleteSelectedItemsButton.isVisible()) {
 			List<WebElementFacade> cartList = cartItems
@@ -49,10 +46,6 @@ public class CartPage extends AbstractPage {
 			deleteSelectedItemsButton.click();
 			logger.info("Cart was deleted");
 		}
-	}
-
-	public void goToHomePage() {
-		logo.click();
 	}
 
 	public void pay() {

@@ -24,8 +24,8 @@ public class HomePageSteps extends AbstractSteps {
 	}
 	
 	@Step
-	public void clickLogin() {
-		getHomePage().login();
+	public void goToLogin() {
+		getHomePage().goToLogin();
 	}
 	
 	@Step
@@ -44,18 +44,8 @@ public class HomePageSteps extends AbstractSteps {
 	}
 	
 	@Step
-	public void getRandomSubCategory() {
-		getHomePage().getRandomSubCategory();
-	}
-	
-	@Step
 	public void confirmAge() {
 		getHomePage().confirmAge();
-	}
-	
-	@Step
-	public void goToCart() {
-		getHomePage().goToCart();
 	}
 
 }

@@ -6,6 +6,7 @@ import com.steps.AbstractSteps;
 import com.tools.models.CartEntryModel;
 
 import net.thucydides.core.annotations.Step;
+import net.thucydides.core.annotations.StepGroup;
 
 public class CartSteps extends AbstractSteps {
 
@@ -14,6 +15,12 @@ public class CartSteps extends AbstractSteps {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@StepGroup
+	public void deleteCart() {
+		selectProductsFromCart();
+		deleteSelectedItems();
+	}
+	
 	@Step
 	public void selectProductsFromCart() {
 		getCartPAge().selectProductsFromCart();
@@ -22,11 +29,6 @@ public class CartSteps extends AbstractSteps {
 	@Step
 	public void deleteSelectedItems() {
 		getCartPAge().deleteSelectedItems();
-	}
-
-	@Step
-	public void goToHomePage() {
-		getCartPAge().goToHomePage();
 	}
 
 	@Step
