@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Random;
 
 import com.tools.constants.EmailConstants;
-import com.tools.factory.RegistrationFormModelFactory;
+import com.tools.factory.CustomerAccountModelFactory;
 import com.tools.utils.FieldGenerator;
 import com.tools.utils.FieldGenerator.TypeOfString;
 
-public class RegistrationFormModel extends RegistrationFormModelFactory{
+public class CustomerAccountModel extends CustomerAccountModelFactory{
 
 	private String salutation = "";
 	private String firstName = "";

@@ -45,5 +45,5 @@ public class AbstractPage extends PageObject {
 			logger.info("response: " + response);
 			retry++;
 		} while (retry <= 4 && response.equals("complete") != true);
-	}
+	}  
 }

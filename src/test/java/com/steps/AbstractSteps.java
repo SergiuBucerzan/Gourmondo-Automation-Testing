@@ -1,14 +1,15 @@
 package com.steps;
 
 import com.pages.frontend.CartPage;
+import com.pages.frontend.CategoryPage;
+import com.pages.frontend.CustomerRegistrationPage;
+import com.pages.frontend.HeaderPage;
 import com.pages.frontend.HomePage;
 import com.pages.frontend.LoginPage;
+import com.pages.frontend.MyAccountPage;
 import com.pages.frontend.ProductListingPage;
-import com.pages.frontend.CustomerRegistrationPage;
 import com.pages.frontend.SearchResultsPage;
-import com.tools.factory.RegistrationFormModelFactory;
-import com.tools.models.RegistrationFormModel;
-
+import com.steps.frontend.CategorySteps;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -24,6 +25,18 @@ public class AbstractSteps extends ScenarioSteps{
 	public void goToUrl(String url) {
 		getDriver().get(url);
 		getDriver().manage().window().maximize();
+	}
+	
+	public HeaderPage getHeaderPage() {
+		return getPages().currentPageAt(HeaderPage.class);
+	}
+	
+	public CategoryPage getCategoryPage() {
+		return getPages().currentPageAt(CategoryPage.class);
+	}
+	
+	public MyAccountPage getMyAccountPage() {
+		return getPages().currentPageAt(MyAccountPage.class);
 	}
 	
 	public HomePage getHomePage() {
