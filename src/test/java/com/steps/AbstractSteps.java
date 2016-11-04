@@ -1,5 +1,6 @@
 package com.steps;
 
+import com.pages.AbstractPage;
 import com.pages.frontend.CartPage;
 import com.pages.frontend.CategoryPage;
 import com.pages.frontend.CustomerRegistrationPage;
@@ -9,7 +10,6 @@ import com.pages.frontend.LoginPage;
 import com.pages.frontend.MyAccountPage;
 import com.pages.frontend.ProductListingPage;
 import com.pages.frontend.SearchResultsPage;
-import com.steps.frontend.CategorySteps;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -25,6 +25,15 @@ public class AbstractSteps extends ScenarioSteps{
 	public void goToUrl(String url) {
 		getDriver().get(url);
 		getDriver().manage().window().maximize();
+	}
+	
+	@Step
+	public void scrollToPageBottom(){
+		getAbstractPage().scrollToPageBottom();
+	}
+	
+	public AbstractPage getAbstractPage() {
+		return getPages().currentPageAt(AbstractPage.class);
 	}
 	
 	public HeaderPage getHeaderPage() {

@@ -45,11 +45,5 @@ public class ProductListingSteps extends AbstractSteps{
 	public void validatePopupSuccessMessage() {
 		getProductListingPage().validatePopupSuccessMessage();
 	}
-	
-	@Step
-	public void scrollToPageBottom(){
-		getProductListingPage().scrollToPageBottom();
-	}
-
 
 }
