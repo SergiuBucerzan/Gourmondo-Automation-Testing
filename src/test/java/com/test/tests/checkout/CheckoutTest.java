@@ -4,7 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.SynchronousQueue;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -20,10 +23,13 @@ import com.steps.frontend.LoginSteps;
 import com.steps.frontend.ProductListingSteps;
 import com.test.BaseTest;
 import com.tools.constants.ProjectResourcesConstants;
+import com.tools.models.CartEntryModel;
 import com.tools.models.CustomerAccountModel;
+import com.tools.models.ProductModel;
 import com.tools.mongo.MongoConnector;
 import com.tools.mongo.reader.MongoReader;
 
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 
@@ -51,6 +57,24 @@ public class CheckoutTest extends BaseTest{
 	public CartSteps cartSteps;
 	 
 	public CustomerAccountModel customerAccountModel = new CustomerAccountModel();
+	
+	public List<ProductModel> productModelList = new ArrayList<>();
+	
+	public ProductModel productModel = new ProductModel();
+	
+	public List<CartEntryModel> cartEntryModelList = new ArrayList<>();
+	
+	public List<WebElementFacade> productList;
+	
+	public List<WebElementFacade> availableProductsList;
+	
+	public double price = 0.0;
+	
+	public double cartCalculatedTotal = 0.0;
+	
+	public double cartValueAsDisplayed = 0.0;
+	
+	public int noOfProductsInCart= 0;
 	
 	@Before
 	public void setUp() {
@@ -83,9 +107,47 @@ public class CheckoutTest extends BaseTest{
 		loginSteps.login(MongoReader.getGourmondoURL(), customerAccountModel);
 		headerSteps.goToCart();
 		cartSteps.deleteCart();
-		headerSteps.goToHomePage();	
-		homePageSteps.getRandomCategory();
-		categorySteps.getRandomSubCategory();
+		
+		// add available products to cart
+		while(price < 25.0) {
+			headerSteps.goToHomePage();
+			
+			//go to product listing page randomly
+			homePageSteps.getRandomCategory();
+			categorySteps.getRandomSubCategory();
+			
+			//add random products to cart
+			productListingSteps.scrollToPageBottom();
+			productList = productListingSteps.getProductsFromListingPage();
+			availableProductsList = productListingSteps.getAvailableProducts(productList);
+			
+			if (availableProductsList.size() > 0) {
+				 while (price < 25.0) {
+					WebElementFacade product = productListingSteps.selectRandomProduct(availableProductsList);
+					productModel = productListingSteps.getProductDetails(product);
+					productListingSteps.addToCart(product);
+					
+					if (productListingSteps.popupSuccessMessage()) {
+						productListingSteps.validatePopupSuccessMessage();
+						productModelList.add(productModel);
+						price = productListingSteps.calculatePriceOfAddedProducts(productModelList);
+					}else 
+						break;
+				}
+			}
+		}
+		
+		//cart page
+		headerSteps.goToCart();
+		cartEntryModelList = cartSteps.getCartProducts();
+		noOfProductsInCart = cartSteps.getTotalNumberOfProducts(cartEntryModelList);
+		cartSteps.validateCartEntryTotal(cartEntryModelList);
+		cartCalculatedTotal = cartSteps.calculateCartTotal(cartEntryModelList);
+		cartValueAsDisplayed = cartSteps.getCartTotal();
+		cartSteps.validateCartTotal(cartCalculatedTotal, cartValueAsDisplayed);
+		cartSteps.validateTotalCartAndTotalValueOfAddedProducts(price, cartCalculatedTotal);
+		cartSteps.validateNoOfAddedProductsWithNoOfCartProducts(productModelList.size(), noOfProductsInCart);
+		
 	}
 	
 	@After

@@ -18,7 +18,11 @@ public class CategoryPage extends AbstractPage {
 	@FindBy (css = "div.categories-listing")
 	WebElementFacade subcategoryContainer;
 	
+	@FindBy (css = "div#colorbox span.yes")
+	WebElementFacade ageGate;
+	
 	public void getRandomSubCategory() {
+		confirmAge();
 		subcategoryContainer.waitUntilVisible();
 		List<WebElementFacade> listOfSubCategories = subcategoryContainer.thenFindAll(By.cssSelector("div.title-wrapper a"));
 		Random random = new Random();
@@ -29,5 +33,13 @@ public class CategoryPage extends AbstractPage {
 		}else 
 			logger.info("No subcategory found.");
 		
+	}
+	
+	public void confirmAge() {
+		if (ageGate.isVisible()){
+			ageGate.waitUntilVisible();
+			ageGate.click();
+		} else
+			logger.info("No alcohol products");
 	}
 }

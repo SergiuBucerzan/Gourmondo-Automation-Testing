@@ -23,9 +23,11 @@ public class MongoReader extends MongoConnector{
 		try  {
 			while(cursor.hasNext()){
 				document = cursor.next();
-				url = checkField(document, MongoConstants.URL);
-				if (!url.isEmpty()){
-					break;
+				if (document.containsKey(MongoConstants.URL)) {
+					url = checkField(document, MongoConstants.URL);
+					if (!url.isEmpty()){
+						break;
+					}
 				}
 			}
 			
@@ -45,7 +47,9 @@ public class MongoReader extends MongoConnector{
 		try {
 			while (cursor.hasNext()){
 				document = cursor.next();
-				host = checkField(document, MongoConstants.HOST);
+				if (document.containsKey(MongoConstants.HOST)) {
+					host = checkField(document, MongoConstants.HOST);
+				}
 			}
 		}finally {
 			cursor.close();
@@ -63,7 +67,10 @@ public class MongoReader extends MongoConnector{
 		try {
 			while (cursor.hasNext()){
 				document = cursor.next();
-				language = checkField(document, MongoConstants.LANGUAGE);
+				if (document.containsKey(MongoConstants.LANGUAGE)) {
+					language = checkField(document, MongoConstants.LANGUAGE);
+					break;
+				}
 			}
 		}finally {
 			cursor.close();

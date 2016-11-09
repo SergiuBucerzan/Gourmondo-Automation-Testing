@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 
 import com.pages.AbstractPage;
 import com.tools.models.CartEntryModel;
+import com.tools.mongo.reader.MongoReader;
 import com.tools.utils.StringUtils;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -69,6 +70,15 @@ public class CartPage extends AbstractPage {
 
 		return productList;
 	}
+	
+	public int getTotalNumberOfProducts(List<CartEntryModel> productList) {
+		int no = 0;
+		for(CartEntryModel product: productList) {
+			no += Integer.valueOf(product.getQuantity());
+		}
+		
+		return no;
+	}
 
 	public double calculateCartTotal(List<CartEntryModel> productList) {
 		BigDecimal cartTotal = new BigDecimal(0.0);
@@ -93,21 +103,25 @@ public class CartPage extends AbstractPage {
 		for (CartEntryModel entry : productList) {
 			double productPrice = Double.valueOf(entry.getPrice()) * Double.valueOf(entry.getQuantity());
 			double entryPrice = Double.valueOf(entry.getTotalPrice());
+			logger.info("cart entry validation: " + productPrice + "----------" + entryPrice);
 			Assert.assertTrue("Product price does not match total product price", productPrice == entryPrice);
 		}
 	}
 
 	public void validateCartTotal(double cartCalculatedTotal, double cartTotal) {
+		logger.info("cart total validation: " + cartCalculatedTotal + "----------" + cartTotal);
 		Assert.assertTrue("Total cart value does not match with calculated total value of entries",
 				cartCalculatedTotal == cartTotal);
 	}
 
 	public void validateTotalCartAndTotalValueOfAddedProducts(double addedProductsTotal, double cartTotal) {
+		logger.info("total cart and total added prod: " + cartTotal + "----------" + addedProductsTotal);
 		Assert.assertTrue("Total cart value does not match with added products total value",
 				addedProductsTotal == cartTotal);
 	}
 
 	public void validateNoOfAddedProductsWithNoOfCartProducts(int addedProducts, int cartProducts) {
+		logger.info("no of products: " + addedProducts + "----------" + cartProducts);
 		Assert.assertTrue("Number of added products does not match number of cart products",
 				addedProducts == cartProducts);
 	}

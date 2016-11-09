@@ -20,16 +20,20 @@ public class ProductListingSteps extends AbstractSteps{
 	}
 	
 	public List<WebElementFacade> getProductsFromListingPage() {
-		scrollToPageBottom();
 		return getProductListingPage().getProductsFromListingPage();
 	}
 	
-	public List<WebElementFacade> getAvailableProducts(List<WebElementFacade> availableProducts) {
-		return getProductListingPage().getAvailableProducts(availableProducts);
+	@Step
+	public void scrollToPageBottom() {
+		abstractPage.scrollToPageBottom();
 	}
 	
-	public WebElementFacade selectRandomProduct(List<WebElementFacade> productList) {
-		return getProductListingPage().selectRandomProduct(productList);
+	public List<WebElementFacade> getAvailableProducts(List<WebElementFacade> productsList) {
+		return getProductListingPage().getAvailableProducts(productsList);
+	}
+	
+	public WebElementFacade selectRandomProduct(List<WebElementFacade> availableProductsList) {
+		return getProductListingPage().selectRandomProduct(availableProductsList);
 	}
 	
 	@Step
@@ -44,6 +48,11 @@ public class ProductListingSteps extends AbstractSteps{
 	@Step
 	public void validatePopupSuccessMessage() {
 		getProductListingPage().validatePopupSuccessMessage();
+	}
+	
+	
+	public boolean popupSuccessMessage() {
+		return getProductListingPage().popupSuccessMessage();
 	}
 
 }

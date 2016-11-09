@@ -48,6 +48,10 @@ public class CartSteps extends AbstractSteps {
 	public double getCartTotal() {
 		return getCartPAge().getCartTotal();
 	}
+	
+	public int getTotalNumberOfProducts(List<CartEntryModel> productList) {
+		return getCartPage().getTotalNumberOfProducts(productList);
+	}
 
 	// VALIDATIONS
 

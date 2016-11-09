@@ -42,10 +42,5 @@ public class HomePageSteps extends AbstractSteps {
 	public void getRandomCategory() {
 		getHomePage().getRandomCategory();
 	}
-	
-	@Step
-	public void confirmAge() {
-		getHomePage().confirmAge();
-	}
 
 }

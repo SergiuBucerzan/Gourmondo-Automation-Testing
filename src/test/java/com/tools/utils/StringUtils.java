@@ -9,6 +9,7 @@ import com.tools.mongo.reader.MongoReader;
 public class StringUtils {
 
 	public static String cleanPrice(String price) {
+		String value = "";
 		Number decimal = null;
 		String language = MongoReader.getLanguage();
 		String priceFormated = price.replaceAll("[^\\d\\.\\,]", "");
@@ -31,7 +32,9 @@ public class StringUtils {
 				e1.printStackTrace();
 			}
 		}
-
-		return decimal.toString();
+		
+		value = String.valueOf(decimal.doubleValue());
+		
+		return value;
 	}
 }

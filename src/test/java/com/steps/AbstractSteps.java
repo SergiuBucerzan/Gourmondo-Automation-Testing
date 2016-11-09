@@ -21,7 +21,8 @@ public class AbstractSteps extends ScenarioSteps{
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@Step
+	protected AbstractPage abstractPage;
+	
 	public void goToUrl(String url) {
 		getDriver().get(url);
 		getDriver().manage().window().maximize();
@@ -30,6 +31,10 @@ public class AbstractSteps extends ScenarioSteps{
 	@Step
 	public void scrollToPageBottom(){
 		getAbstractPage().scrollToPageBottom();
+	}
+	
+	public void refresh() {
+		getAbstractPage().refresh();
 	}
 	
 	public AbstractPage getAbstractPage() {
@@ -42,6 +47,10 @@ public class AbstractSteps extends ScenarioSteps{
 	
 	public CategoryPage getCategoryPage() {
 		return getPages().currentPageAt(CategoryPage.class);
+	}
+	
+	public CartPage getCartPage() {
+		return getPages().currentPageAt(CartPage.class);
 	}
 	
 	public MyAccountPage getMyAccountPage() {

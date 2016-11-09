@@ -28,9 +28,6 @@ public class HomePage extends AbstractPage{
 	@FindBy (id = "navbar")
 	WebElementFacade categoryContainer;
 	
-	@FindBy (css = "div#colorbox span.yes")
-	WebElementFacade ageGate;
-	
 	public void goToLogin() {
 		login.click();
 	}
@@ -56,8 +53,5 @@ public class HomePage extends AbstractPage{
 		
 	}
 	
-	public void confirmAge() {
-		ageGate.waitUntilVisible();
-		ageGate.click();
-	}
+
 }

@@ -28,6 +28,9 @@ public class ProductListingPage extends AbstractPage{
 	@FindBy (css = "div#addToCartLayer div.legend")
 	WebElementFacade successPopup;
 	
+	@FindBy (css = "div.cart_popup_error_msg")
+	WebElementFacade errorPopup;
+	
 	public double calculatePriceOfAddedProducts(List<ProductModel> addedProductList) {
 		BigDecimal totalPrice = new BigDecimal("0.0");
 		
@@ -35,6 +38,8 @@ public class ProductListingPage extends AbstractPage{
 			totalPrice = totalPrice.add(new BigDecimal(product.getPrice()));
 		}
 			
+		logger.info("added products price is: " + totalPrice.doubleValue());
+		
 		return totalPrice.doubleValue();
 	}
 	
@@ -47,32 +52,34 @@ public class ProductListingPage extends AbstractPage{
 		return productList;
 	}
 	
-	public List<WebElementFacade> getAvailableProducts(List<WebElementFacade> availableProducts) {
-		List<WebElementFacade> productList = new ArrayList<>();
-		for (WebElementFacade product : availableProducts) {
+	public List<WebElementFacade> getAvailableProducts(List<WebElementFacade> productList) {
+		List<WebElementFacade> availableProductsList = new ArrayList<>();
+		for (WebElementFacade product : productList) {
 			if(product.find(By.cssSelector("div.stock-and-delivery p")).getAttribute("class").contentEquals("stock-status available")) {
-				productList.add(product);
+				availableProductsList.add(product);
 				logger.info("Product " + product.find(By.cssSelector("div.title-wrapper h4")).getText() + " is available");
 			}
 		}
 		
-		return productList;
+		return availableProductsList;
 	}
 	
-	public WebElementFacade selectRandomProduct(List<WebElementFacade> productList) {
+	public WebElementFacade selectRandomProduct(List<WebElementFacade> availableProductsList) {
 		Random random = new Random();
-		WebElementFacade product = productList.get(random.nextInt(productList.size()));
+		WebElementFacade product = availableProductsList.get(random.nextInt(availableProductsList.size()));
 		
 		return product;
 	}
 	
 	public void addToCart(WebElementFacade product) {
 		product.find(By.cssSelector("div.add-to-cart-wrapper button")).click();
+		logger.info("Product added is: " + product.find(By.cssSelector("div.title-wrapper h4")).getText());
 	}
 	
 	public ProductModel getProductDetails(WebElementFacade product) {
 		ProductModel productModel = new ProductModel();
 		productModel.setName(product.find(By.cssSelector("div.title-wrapper h4")).getText());
+		logger.info(product.find(By.cssSelector("div.price p")).getText());
 		productModel.setPrice(StringUtils.cleanPrice(product.find(By.cssSelector("div.price p")).getText()));
 		
 		return productModel;
@@ -82,6 +89,14 @@ public class ProductListingPage extends AbstractPage{
 		Assert.assertTrue("Pop up displayed.", successPopup.isVisible());
 		Assert.assertTrue("Product appear to be available but has no stock.", successPopup.getText().contentEquals("Added to cart"));
 		waitABit(5000);
+	}
+	
+	public boolean popupSuccessMessage() {
+		boolean success = false;
+		if (successPopup.isVisible()) {
+			success = successPopup.getText().contentEquals("Added to cart");
+		}
+		return success;
 	}
 
 }
