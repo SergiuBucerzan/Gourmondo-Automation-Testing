@@ -10,6 +10,16 @@ import com.pages.frontend.LoginPage;
 import com.pages.frontend.MyAccountPage;
 import com.pages.frontend.ProductListingPage;
 import com.pages.frontend.SearchResultsPage;
+import com.pages.hmc.order.HmcOrdersEditorPage;
+import com.pages.hmc.HmcExplorerTreePage;
+import com.pages.hmc.HmcLoginPage;
+import com.pages.hmc.order.HmcOrderPage;
+import com.pages.hmc.order.HmcOrdersResultsPage;
+import com.pages.hmc.order.HmcOrdersSearchPage;
+import com.pages.hmc.user.HmcUserPage;
+import com.pages.hmc.user.customers.HmcCustomersEditorPage;
+import com.pages.hmc.user.customers.HmcCustomersResultsPage;
+import com.pages.hmc.user.customers.HmcCustomersSearchPage;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
@@ -80,5 +90,45 @@ public class AbstractSteps extends ScenarioSteps{
 	
 	public CartPage getCartPAge() {
 		return getPages().currentPageAt(CartPage.class);
+	}
+	
+	public HmcLoginPage getHmcLoginPage() {
+		return getPages().currentPageAt(HmcLoginPage.class);
+	}
+	
+	public HmcExplorerTreePage getHmcExplorerTreePage() {
+		return getPages().currentPageAt(HmcExplorerTreePage.class);
+	}
+	
+	public HmcUserPage getHmcUserPage() {
+		return getPages().currentPageAt(HmcUserPage.class);
+	}
+	
+	public HmcCustomersEditorPage getHmcUserEditorPage() {
+		return getPages().currentPageAt(HmcCustomersEditorPage.class);
+	}
+	
+	public HmcCustomersSearchPage getHmcUserSearchPage() {
+		return getPages().currentPageAt(HmcCustomersSearchPage.class);
+	}
+	
+	public HmcCustomersResultsPage getHmcUserResultsPage() {
+		return getPages().currentPageAt(HmcCustomersResultsPage.class);
+	}
+	
+	public HmcOrderPage getHmcOrderPage() {
+		return getPages().currentPageAt(HmcOrderPage.class);
+	}
+	
+	public HmcOrdersEditorPage getHmcOrderEditorPage() {
+		return getPages().currentPageAt(HmcOrdersEditorPage.class);
+	}
+	
+	public HmcOrdersSearchPage getHmcOrderSearchPage() {
+		return getPages().currentPageAt(HmcOrdersSearchPage.class);
+	}
+	
+	public HmcOrdersResultsPage getHmcOrderResultsPage() {
+		return getPages().currentPageAt(HmcOrdersResultsPage.class);
 	}
 }
