@@ -26,7 +26,7 @@ public class CustomerRegistrationTest extends BaseTest{
 	public HomePageSteps homePage;
 	
 	@Steps
-	public LoginSteps login;
+	public LoginSteps loginSteps;
 	
 	@Steps
 	public CustomerRegistrationSteps customerRegistrationSteps;
@@ -45,7 +45,7 @@ public class CustomerRegistrationTest extends BaseTest{
 	public void registerNewCustomerTest() {
 		homePage.goToUrl(MongoReader.getGourmondoURL());
 		homePage.goToLogin();
-		login.clickCreateAccount();
+		loginSteps.clickCreateAccount();
 		customerRegistrationSteps.fillCustomerRegistrationForm(registrationFormModel);
 		
 	}

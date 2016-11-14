@@ -22,7 +22,7 @@ public class CustomerRegistrationSteps extends AbstractSteps {
 		inputPassword(registrationFormModel.getPassword());
 		inputConfirmationPassword(registrationFormModel.getPassword());
 		clickTermsAndConditionsCheckbox();
-//		clickRegisterAndContinueButton();
+		clickRegisterAndContinueButton();
 	}
 	
 	@Step

@@ -7,18 +7,20 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class HmcExplorerTreePage extends AbstractPage {
 	
-	@FindBy(css = "table.explorer tbody tr:nth-child(6)")
+	@FindBy(id = "Tree/GenericExplorerMenuTreeNode[user]_label")
 	private WebElementFacade user;
 	
-	@FindBy(css = "table.explorer tbody tr:nth-child(7)")
+	@FindBy(css = "Tree/GenericExplorerMenuTreeNode[order]_label")
 	private WebElementFacade order;
 	
 	
 	public void selectUser() {
+		user.waitUntilVisible();
 		user.click();
 	}
 	
 	public void selectOrder() {
+		order.waitUntilVisible();
 		order.click();
 	}
 

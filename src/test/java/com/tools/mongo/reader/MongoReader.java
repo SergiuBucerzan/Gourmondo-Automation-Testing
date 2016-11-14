@@ -5,7 +5,9 @@ import java.net.UnknownHostException;
 import org.bson.Document;
 
 import com.mongodb.client.MongoCursor;
+import com.tools.constants.ModelConstants;
 import com.tools.constants.MongoConstants;
+import com.tools.models.CustomerAccountModel;
 import com.tools.mongo.MongoConnector;
 
 public class MongoReader extends MongoConnector{
@@ -77,6 +79,21 @@ public class MongoReader extends MongoConnector{
 		}
 		
 		return language;
+	}
+	
+	public static CustomerAccountModel getCustomerRegistrationData() {
+		CustomerAccountModel customerModel = new CustomerAccountModel();
+		workingDB = mongoClient.getDatabase(MongoConstants.CUSTOMER_DB);
+		Document document = null;
+		try
+		(MongoCursor<Document> cursor = workingDB.getCollection(MongoConstants.CUSTOMER_REGISTRATION_FORM).find().iterator()) {
+			while(cursor.hasNext()) {
+				document = cursor.next();
+				customerModel.setEmailAddress(document.getString(ModelConstants.EMAIL_ADDRESS));			
+			}
+		};
+		return customerModel;
+		
 	}
 	
 }

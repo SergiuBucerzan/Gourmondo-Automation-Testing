@@ -104,15 +104,15 @@ public class AbstractSteps extends ScenarioSteps{
 		return getPages().currentPageAt(HmcUserPage.class);
 	}
 	
-	public HmcCustomersEditorPage getHmcUserEditorPage() {
+	public HmcCustomersEditorPage getHmcCustomersEditorPage() {
 		return getPages().currentPageAt(HmcCustomersEditorPage.class);
 	}
 	
-	public HmcCustomersSearchPage getHmcUserSearchPage() {
+	public HmcCustomersSearchPage getHmcCustomersSearchPage() {
 		return getPages().currentPageAt(HmcCustomersSearchPage.class);
 	}
 	
-	public HmcCustomersResultsPage getHmcUserResultsPage() {
+	public HmcCustomersResultsPage getHmcCustomersResultsPage() {
 		return getPages().currentPageAt(HmcCustomersResultsPage.class);
 	}
 	
@@ -120,15 +120,15 @@ public class AbstractSteps extends ScenarioSteps{
 		return getPages().currentPageAt(HmcOrderPage.class);
 	}
 	
-	public HmcOrdersEditorPage getHmcOrderEditorPage() {
+	public HmcOrdersEditorPage getHmcOrdersEditorPage() {
 		return getPages().currentPageAt(HmcOrdersEditorPage.class);
 	}
 	
-	public HmcOrdersSearchPage getHmcOrderSearchPage() {
+	public HmcOrdersSearchPage getHmcOrdersSearchPage() {
 		return getPages().currentPageAt(HmcOrdersSearchPage.class);
 	}
 	
-	public HmcOrdersResultsPage getHmcOrderResultsPage() {
+	public HmcOrdersResultsPage getHmcOrdersResultsPage() {
 		return getPages().currentPageAt(HmcOrdersResultsPage.class);
 	}
 }
