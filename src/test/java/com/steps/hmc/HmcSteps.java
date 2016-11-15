@@ -2,7 +2,8 @@ package com.steps.hmc;
 
 import com.steps.AbstractSteps;
 import com.tools.constants.HybrisCredentials;
-import com.tools.models.CustomerAccountModel;
+import com.tools.models.frontend.CustomerAccountModel;
+import com.tools.models.hmc.HmcCustomerAccountModel;
 import com.tools.mongo.reader.MongoReader;
 
 import net.thucydides.core.annotations.Step;
@@ -79,5 +80,9 @@ public class HmcSteps extends AbstractSteps {
 	@Step
 	public void selectOrder() {
 		getHmcExplorerTreePage().selectOrder();
+	}
+	
+	public HmcCustomerAccountModel getCustomerAccountData() {
+		return getHmcCustomersEditorPage().getCustomerAccountData();
 	}
 }

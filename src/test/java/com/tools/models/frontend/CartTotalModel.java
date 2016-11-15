@@ -1,4 +1,4 @@
-package com.tools.models;
+package com.tools.models.frontend;
 
 public class CartTotalModel {
 	

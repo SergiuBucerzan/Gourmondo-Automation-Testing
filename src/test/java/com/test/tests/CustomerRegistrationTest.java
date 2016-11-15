@@ -11,7 +11,7 @@ import com.steps.frontend.CustomerRegistrationSteps;
 import com.test.BaseTest;
 import com.tools.constants.MongoConstants;
 import com.tools.factory.CustomerAccountModelFactory;
-import com.tools.models.CustomerAccountModel;
+import com.tools.models.frontend.CustomerAccountModel;
 import com.tools.mongo.MongoConnector;
 import com.tools.mongo.reader.MongoReader;
 import com.tools.mongo.writer.MongoWriter;

@@ -23,9 +23,9 @@ import com.steps.frontend.LoginSteps;
 import com.steps.frontend.ProductListingSteps;
 import com.test.BaseTest;
 import com.tools.constants.ProjectResourcesConstants;
-import com.tools.models.CartEntryModel;
-import com.tools.models.CustomerAccountModel;
-import com.tools.models.ProductModel;
+import com.tools.models.frontend.CartEntryModel;
+import com.tools.models.frontend.CustomerAccountModel;
+import com.tools.models.frontend.ProductModel;
 import com.tools.mongo.MongoConnector;
 import com.tools.mongo.reader.MongoReader;
 

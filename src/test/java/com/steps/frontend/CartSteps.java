@@ -3,7 +3,7 @@ package com.steps.frontend;
 import java.util.List;
 
 import com.steps.AbstractSteps;
-import com.tools.models.CartEntryModel;
+import com.tools.models.frontend.CartEntryModel;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;

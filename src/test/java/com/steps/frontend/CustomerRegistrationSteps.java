@@ -2,7 +2,8 @@ package com.steps.frontend;
 
 import com.pages.frontend.HomePage;
 import com.steps.AbstractSteps;
-import com.tools.models.CustomerAccountModel;
+import com.tools.models.frontend.CustomerAccountModel;
+
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.annotations.StepGroup;
 

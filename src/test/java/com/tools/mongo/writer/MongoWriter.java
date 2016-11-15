@@ -7,7 +7,7 @@ import org.bson.Document;
 import com.mongodb.client.MongoCollection;
 import com.tools.constants.ModelConstants;
 import com.tools.constants.MongoConstants;
-import com.tools.models.CustomerAccountModel;
+import com.tools.models.frontend.CustomerAccountModel;
 import com.tools.mongo.MongoConnector;
 
 public class MongoWriter extends MongoConnector{

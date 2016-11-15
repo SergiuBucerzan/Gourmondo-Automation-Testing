@@ -1,11 +1,12 @@
-package com.tools.models;
+package com.tools.models.frontend;
 
-public class ProductModel {
+public class CartEntryModel {
 
 	private String name;
 	private String price;
 	private String oldPrice;
 	private String quantity;
+	private String totalPrice;
 	
 	
 	public String getName() {
@@ -32,8 +33,12 @@ public class ProductModel {
 	public void setQuantity(String quantity) {
 		this.quantity = quantity;
 	}
-	
-	
+	public String getTotalPrice() {
+		return totalPrice;
+	}
+	public void setTotalPrice(String totalPrice) {
+		this.totalPrice = totalPrice;
+	}
 	
 	
 }

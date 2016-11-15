@@ -20,6 +20,7 @@ import com.pages.hmc.user.HmcUserPage;
 import com.pages.hmc.user.customers.HmcCustomersEditorPage;
 import com.pages.hmc.user.customers.HmcCustomersResultsPage;
 import com.pages.hmc.user.customers.HmcCustomersSearchPage;
+import com.tools.models.hmc.HmcCustomerAccountModel;
 
 import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;

@@ -7,7 +7,8 @@ import org.bson.Document;
 import com.mongodb.client.MongoCursor;
 import com.tools.constants.ModelConstants;
 import com.tools.constants.MongoConstants;
-import com.tools.models.CustomerAccountModel;
+import com.tools.models.frontend.CustomerAccountModel;
+import com.tools.models.hmc.HmcCustomerAccountModel;
 import com.tools.mongo.MongoConnector;
 
 public class MongoReader extends MongoConnector{
@@ -89,11 +90,14 @@ public class MongoReader extends MongoConnector{
 		(MongoCursor<Document> cursor = workingDB.getCollection(MongoConstants.CUSTOMER_REGISTRATION_FORM).find().iterator()) {
 			while(cursor.hasNext()) {
 				document = cursor.next();
-				customerModel.setEmailAddress(document.getString(ModelConstants.EMAIL_ADDRESS));			
+				customerModel.setEmailAddress(document.getString(ModelConstants.EMAIL_ADDRESS));
+				customerModel.setFirstName(document.getString(ModelConstants.FIRSTNAME));
+				customerModel.setLastName(document.getString(ModelConstants.LASTNAME));
+				customerModel.setDay(document.getString(ModelConstants.BIRTHDAY_DAY));
+				customerModel.setMonth(document.getString(ModelConstants.BIRTHDAY_MONTH));
+				customerModel.setYear(document.getString(ModelConstants.BIRTHDAY_YEAR));				
 			}
-		};
-		return customerModel;
-		
+		}
+		return customerModel;	
 	}
-	
 }

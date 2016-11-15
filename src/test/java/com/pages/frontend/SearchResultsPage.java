@@ -10,7 +10,7 @@ import org.openqa.selenium.WebElement;
 
 import com.pages.AbstractPage;
 import com.test.BaseTest;
-import com.tools.models.ProductModel;
+import com.tools.models.frontend.ProductModel;
 import com.tools.mongo.reader.MongoReader;
 import com.tools.utils.StringUtils;
 

@@ -12,7 +12,7 @@ import com.steps.frontend.HomePageSteps;
 import com.steps.frontend.SearchResultsSteps;
 import com.test.BaseTest;
 import com.tools.constants.MongoConstants;
-import com.tools.models.ProductModel;
+import com.tools.models.frontend.ProductModel;
 import com.tools.mongo.reader.MongoReader;
 
 import net.serenitybdd.junit.runners.SerenityRunner;

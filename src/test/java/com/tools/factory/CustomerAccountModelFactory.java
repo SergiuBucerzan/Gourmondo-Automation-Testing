@@ -1,7 +1,8 @@
 package com.tools.factory;
 
 import java.util.GregorianCalendar;
-import com.tools.models.CustomerAccountModel;
+
+import com.tools.models.frontend.CustomerAccountModel;
 import com.tools.utils.FieldGenerator;
 
 public class CustomerAccountModelFactory {

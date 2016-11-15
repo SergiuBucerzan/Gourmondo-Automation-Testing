@@ -9,7 +9,7 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 
 import com.pages.AbstractPage;
-import com.tools.models.CartEntryModel;
+import com.tools.models.frontend.CartEntryModel;
 import com.tools.mongo.reader.MongoReader;
 import com.tools.utils.StringUtils;
 

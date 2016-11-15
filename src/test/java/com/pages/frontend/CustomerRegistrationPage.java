@@ -6,7 +6,7 @@ import java.util.Random;
 import org.openqa.selenium.WebElement;
 
 import com.pages.AbstractPage;
-import com.tools.models.CustomerAccountModel;
+import com.tools.models.frontend.CustomerAccountModel;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
