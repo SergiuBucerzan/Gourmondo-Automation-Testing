@@ -81,7 +81,7 @@ public class CartPage extends AbstractPage {
 	}
 
 	public double calculateCartTotal(List<CartEntryModel> productList) {
-		BigDecimal cartTotal = new BigDecimal(0.0);
+		BigDecimal cartTotal = new BigDecimal("0.0");
 		
 		for (CartEntryModel product : productList) {
 			BigDecimal productPrice = new BigDecimal(Double.valueOf(product.getTotalPrice()));

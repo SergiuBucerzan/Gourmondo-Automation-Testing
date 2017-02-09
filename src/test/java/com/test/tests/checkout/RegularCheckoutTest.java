@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.concurrent.SynchronousQueue;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -27,16 +26,15 @@ import com.tools.models.frontend.CartEntryModel;
 import com.tools.models.frontend.CustomerAccountModel;
 import com.tools.models.frontend.ProductModel;
 import com.tools.mongo.MongoConnector;
-import com.tools.mongo.reader.MongoReader;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 
 @RunWith (SerenityRunner.class)
-public class CheckoutTest extends BaseTest{
+public class RegularCheckoutTest extends BaseTest{
 	
-	final static Logger logger = Logger.getLogger(CheckoutTest.class);
+	final static Logger logger = Logger.getLogger(RegularCheckoutTest.class);
 	
 	@Steps
 	public HomePageSteps homePageSteps;
@@ -68,6 +66,8 @@ public class CheckoutTest extends BaseTest{
 	
 	public List<WebElementFacade> availableProductsList;
 	
+	public List<String> products = new ArrayList<>();
+	
 	public double price = 0.0;
 	
 	public double cartCalculatedTotal = 0.0;
@@ -83,10 +83,12 @@ public class CheckoutTest extends BaseTest{
 		InputStream inputStream = null;
 		
 		try {
-			inputStream = 	new FileInputStream(ProjectResourcesConstants.SERVER + "checkout" + File.separator + "checkout_frontend_test.properties");
+			inputStream = 	new FileInputStream(ProjectResourcesConstants.SERVER  + shop + File.separator + "checkout" + File.separator + getClass().getSimpleName() + ".properties");
 			prop.load(inputStream);
 			customerAccountModel.setEmailAddress(prop.getProperty("email"));
 			customerAccountModel.setPassword(prop.getProperty("password"));
+			products.add(prop.getProperty("product1"));
+			products.add(prop.getProperty("product2"));
 		}catch(IOException e) {
 			e.printStackTrace();
 		}finally {
@@ -104,39 +106,22 @@ public class CheckoutTest extends BaseTest{
 	
 	@Test
 	public void performCheckout() {
-		loginSteps.login(MongoReader.getGourmondoURL(), customerAccountModel);
+		loginSteps.login(getUrl(), customerAccountModel);
 		headerSteps.goToCart();
 		cartSteps.deleteCart();
 		
-		// add available products to cart
-		while(price < 25.0) {
-			headerSteps.goToHomePage();
-			
-			//go to product listing page randomly
-			homePageSteps.getRandomCategory();
-			categorySteps.getRandomSubCategory();
-			
-			//add random products to cart
-			productListingSteps.scrollToPageBottom();
-			productList = productListingSteps.getProductsFromListingPage();
-			availableProductsList = productListingSteps.getAvailableProducts(productList);
-			
-			if (availableProductsList.size() > 0) {
-				 while (price < 25.0) {
-					WebElementFacade product = productListingSteps.selectRandomProduct(availableProductsList);
-					productModel = productListingSteps.getProductDetails(product);
-					productListingSteps.addToCart(product);
-					
-					if (productListingSteps.popupSuccessMessage()) {
-						productListingSteps.validatePopupSuccessMessage();
-						productModelList.add(productModel);
-						price = productListingSteps.calculatePriceOfAddedProducts(productModelList);
-					}else 
-						break;
-				}
-			}
+	    //go to product listing page randomly
+		headerSteps.goToHomePage();
+		
+		for(String product: products) {
+			homePageSteps.searchKeyword(product);
+			productModel = productListingSteps.addProductToCart();
+			productListingSteps.validatePopupSuccess();
+			productModelList.add(productModel);
 		}
 		
+		price = productListingSteps.calculatePriceOfAddedProducts(productModelList);
+
 		//cart page
 		headerSteps.goToCart();
 		cartEntryModelList = cartSteps.getCartProducts();
@@ -147,12 +132,11 @@ public class CheckoutTest extends BaseTest{
 		cartSteps.validateCartTotal(cartCalculatedTotal, cartValueAsDisplayed);
 		cartSteps.validateTotalCartAndTotalValueOfAddedProducts(price, cartCalculatedTotal);
 		cartSteps.validateNoOfAddedProductsWithNoOfCartProducts(productModelList.size(), noOfProductsInCart);
-		
+		cartSteps.pay();		
 	}
 	
 	@After
 	public void saveTestData() {
-		
 	}
 
 }

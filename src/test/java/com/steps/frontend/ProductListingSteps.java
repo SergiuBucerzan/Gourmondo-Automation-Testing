@@ -23,7 +23,7 @@ public class ProductListingSteps extends AbstractSteps{
 		return getProductListingPage().getProductsFromListingPage();
 	}
 	
-	@Step
+	
 	public void scrollToPageBottom() {
 		abstractPage.scrollToPageBottom();
 	}
@@ -37,22 +37,21 @@ public class ProductListingSteps extends AbstractSteps{
 	}
 	
 	@Step
-	public void addToCart(WebElementFacade product) {
-		getProductListingPage().addToCart(product);
+	public ProductModel addProductToCart() {
+		return getProductListingPage().addProductToCart();
 	}
 	
 	public ProductModel getProductDetails(WebElementFacade product) {
 		return getProductListingPage().getProductDetails(product);
 	}
 	
-	@Step
-	public void validatePopupSuccessMessage() {
-		getProductListingPage().validatePopupSuccessMessage();
+	
+	public boolean validatePopupSuccessMessage() {
+		return getProductListingPage().validatePopupSuccessMessage();
 	}
 	
-	
-	public boolean popupSuccessMessage() {
-		return getProductListingPage().popupSuccessMessage();
+	public void validatePopupSuccess() {
+	    getProductListingPage().validatePopupSuccess();
 	}
 
 }

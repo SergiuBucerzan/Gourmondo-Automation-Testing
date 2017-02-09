@@ -1,5 +1,6 @@
 package com.test;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,10 +11,9 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 
 import com.tools.constants.ConfigConstants;
-import com.tools.constants.MongoConstants;
 import com.tools.constants.ProjectResourcesConstants;
+import com.tools.gmail.GmailConnector;
 import com.tools.mongo.MongoConnector;
-import com.tools.mongo.writer.MongoWriter;
 
 import net.thucydides.core.annotations.Managed;
 import net.thucydides.core.annotations.ManagedPages;
@@ -29,33 +29,47 @@ public class BaseTest {
 		
 	final static Logger logger = Logger.getLogger(BaseTest.class);
 	MongoConnector mongoConnector;
+	GmailConnector gmailConnector;
+	
+	protected static String shop = "";
+	protected static String language = "";
+    protected static String url = "";
 	
 	@Before
 	public void startup() throws IOException {
+	
+		shop = ConfigConstants.GOURMONDO_UK_TEST;
+		language = ConfigConstants.UK;
+		logger.info("Shop: " + shop);
+		logger.info("Language is: " + language);
 		
-		String host = ConfigConstants.GOURMONDO_UK_TEST;
-		String language = ConfigConstants.UK;
-		String url = "";
-		
+		//connecting to mongo
 		try{
 			mongoConnector = new MongoConnector();
+			
 			logger.info("Connecting to mongo database...");
 		}catch(Exception e){
 			logger.info("Cannot connect to mongo!");
 			e.printStackTrace();
 		}
 		
-		MongoConnector.cleanDatabase(MongoConstants.CONFIG);
-		MongoWriter.saveBaseTestConfigs(host, language);
-		logger.info("Host: " + host);
-		logger.info("Language is: " + language);
+		//read and set url from config file
+		setUrl();
 		
+		
+		//connecting to gmail
+		gmailConnector = new GmailConnector();
+		
+	}
+	
+	public void setUrl() {
 		Properties properties = new Properties();
 		InputStream input = null;
 		try {
-			input = new FileInputStream(ProjectResourcesConstants.SERVER + "config.properties");
+			input = new FileInputStream(ProjectResourcesConstants.SERVER + shop + File.separator +  "config.properties");
 			properties.load(input);
 			url = properties.getProperty("baseUrl");
+			logger.info("Url: " + url);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -66,10 +80,21 @@ public class BaseTest {
 					e.printStackTrace();
 				}
 		}
-		
-		MongoWriter.saveGourmondoURL(url);
-		logger.info("Url: " + url);
 	}
+	
+	public static String getUrl() {
+		System.out.println("get url from global var");
+		return url;
+	}
+	
+	public static String getLanguage() {
+		return language;
+	}
+	
+	public static String getShop() {
+		return shop;
+	}
+	
 	
 	
 }

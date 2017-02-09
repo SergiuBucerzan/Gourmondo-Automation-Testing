@@ -71,11 +71,51 @@ public class ProductListingPage extends AbstractPage{
 		return product;
 	}
 	
-	public void addToCart(WebElementFacade product) {
-		product.find(By.cssSelector("div.add-to-cart-wrapper button")).click();
-		logger.info("Product added is: " + product.find(By.cssSelector("div.title-wrapper h4")).getText());
+	public ProductModel addProductToCart() {
+	    ProductModel productModel = new ProductModel();
+	    List<WebElementFacade> productList;
+	    List<WebElementFacade> availableProductsList;
+		
+		productList = getProductsFromListingPage();
+		availableProductsList = getAvailableProducts(productList);
+		
+		if (availableProductsList.size() > 0) {
+				WebElementFacade product = selectRandomProduct(availableProductsList);
+				productModel = getProductDetails(product);
+				product.find(By.cssSelector("div.add-to-cart-wrapper button")).click();
+				logger.info("Product added is: " + product.find(By.cssSelector("div.title-wrapper h4")).getText());		
+		}
+		
+		
+		return productModel;
 	}
 	
+//	public List<ProductModel> addProductListToCart() {
+//		List<ProductModel> productModelList = new ArrayList<>();
+//		ProductModel productModel = new ProductModel();
+//		
+//		productListingSteps.scrollToPageBottom();
+//		productList = productListingSteps.getProductsFromListingPage();
+//		availableProductsList = productListingSteps.getAvailableProducts(productList);
+//		
+//		if (availableProductsList.size() > 0) {
+//			 while (price < 25.0) {
+//				WebElementFacade product = productListingSteps.selectRandomProduct(availableProductsList);
+//				productModel = productListingSteps.getProductDetails(product);
+//				productListingSteps.addToCart(product);
+//				
+//				if (productListingSteps.popupSuccessMessage()) {
+//					productListingSteps.validatePopupSuccessMessage();
+//					productModelList.add(productModel);
+//					price = productListingSteps.calculatePriceOfAddedProducts(productModelList);
+//				}else 
+//					break;
+//			}
+//		}
+//		product.find(By.cssSelector("div.add-to-cart-wrapper button")).click();
+//		logger.info("Product added is: " + product.find(By.cssSelector("div.title-wrapper h4")).getText());
+//	}
+//	
 	public ProductModel getProductDetails(WebElementFacade product) {
 		ProductModel productModel = new ProductModel();
 		productModel.setName(product.find(By.cssSelector("div.title-wrapper h4")).getText());
@@ -85,18 +125,20 @@ public class ProductListingPage extends AbstractPage{
 		return productModel;
 	}
 	
-	public void validatePopupSuccessMessage() {
-		Assert.assertTrue("Pop up displayed.", successPopup.isVisible());
-		Assert.assertTrue("Product appear to be available but has no stock.", successPopup.getText().contentEquals("Added to cart"));
-		waitABit(5000);
-	}
-	
-	public boolean popupSuccessMessage() {
+	public boolean validatePopupSuccessMessage() {
 		boolean success = false;
 		if (successPopup.isVisible()) {
 			success = successPopup.getText().contentEquals("Added to cart");
+			waitABit(5000);
 		}
 		return success;
+	}
+	
+	public void validatePopupSuccess() {
+		if (successPopup.isVisible()) {
+			Assert.assertTrue("product is not available", successPopup.getText().contentEquals("Added to cart"));
+			waitABit(5000);
+		}
 	}
 
 }
