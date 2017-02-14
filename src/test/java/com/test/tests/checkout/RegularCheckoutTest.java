@@ -106,7 +106,7 @@ public class RegularCheckoutTest extends BaseTest{
 	
 	@Test
 	public void performCheckout() {
-		loginSteps.login(getUrl(), customerAccountModel);
+		loginSteps.login(BaseTest.getUrl(), customerAccountModel);
 		headerSteps.goToCart();
 		cartSteps.deleteCart();
 		

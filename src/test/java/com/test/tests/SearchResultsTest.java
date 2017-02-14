@@ -41,7 +41,7 @@ public class SearchResultsTest extends BaseTest {
 
 	@Test
 	public void searchTest() {
-		homePage.goToUrl(MongoReader.getGourmondoURL());
+		homePage.goToUrl(BaseTest.getUrl());
 		homePage.searchKeyword(keyword);
 		List <ProductModel> productSearchList = serchResults.getProductList();
 		serchResults.validateSearchResultsProducts(productSearchList);

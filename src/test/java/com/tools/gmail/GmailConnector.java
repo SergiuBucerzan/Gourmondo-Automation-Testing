@@ -47,7 +47,7 @@ public class GmailConnector {
 	}
 	
 	// search for a specific email 
-	public String searchForgotPasswordMailCode(String emailAddressFrom, String subject, String key) {
+	public String searchForgotPasswordMail(String emailAddressFrom, String subject, String key) {
 		String emailText = "";
 		Message[] message = getEmails();
 		boolean messageReceived = false;

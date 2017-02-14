@@ -4,14 +4,14 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
-import com.tools.mongo.reader.MongoReader;
+import com.test.BaseTest;
 
 public class StringUtils {
 
 	public static String cleanPrice(String price) {
 		String value = "";
 		Number decimal = null;
-		String language = MongoReader.getLanguage();
+		String language = BaseTest.getLanguage();
 		String priceFormated = price.replaceAll("[^\\d\\.\\,]", "");
 
 		if (language.contentEquals("en")) {

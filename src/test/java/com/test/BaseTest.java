@@ -38,8 +38,8 @@ public class BaseTest {
 	@Before
 	public void startup() throws IOException {
 	
-		shop = ConfigConstants.GOURMONDO_UK_TEST;
-		language = ConfigConstants.UK;
+		shop = ConfigConstants.GOURMONDO_DE_TEST;
+		language = ConfigConstants.DE;
 		logger.info("Shop: " + shop);
 		logger.info("Language is: " + language);
 		
