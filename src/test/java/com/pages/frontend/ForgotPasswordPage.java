@@ -11,7 +11,7 @@ public class ForgotPasswordPage extends AbstractPage{
 	WebElementFacade email;
 	
 	@FindBy (css="div#email button span")
-	WebElementFacade nextButton;
+	WebElementFacade resetButton;
 	
 	@FindBy (css="div.navigation button span")
 	WebElementFacade toTheShop;
@@ -21,7 +21,7 @@ public class ForgotPasswordPage extends AbstractPage{
 	}
 	
 	public void goNext() {
-		nextButton.click();
+		resetButton.click();
 	}
 
 }

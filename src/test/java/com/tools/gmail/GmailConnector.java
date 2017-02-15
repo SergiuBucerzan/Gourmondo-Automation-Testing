@@ -33,10 +33,10 @@ public class GmailConnector {
 		password = GmailConstants.PASSWORD;
 	}
 	
-	public String getValueFromText(String emailtext, String begin, String end) {
+	public String getLinkFromEmail(String emailtext, String begin, String end) {
 		String value = "";
 		
-		Pattern pattern = Pattern.compile(begin + " (.*?) " + end);
+		Pattern pattern = Pattern.compile(begin + "(.*?)" + end);
 		Matcher matcher = pattern.matcher(emailtext);
 		if (matcher.find()) {
 			value = matcher.group(1).trim();
@@ -47,7 +47,7 @@ public class GmailConnector {
 	}
 	
 	// search for a specific email 
-	public String searchForgotPasswordMail(String emailAddressFrom, String subject, String key) {
+	public String searchEmail(String emailAddressFrom, String subject) {
 		String emailText = "";
 		Message[] message = getEmails();
 		boolean messageReceived = false;
@@ -106,9 +106,9 @@ public class GmailConnector {
 				emailText = emailText + "\n" + bodyPart.getContent();
 				break;
 			} else if (bodyPart.isMimeType("text/html")) {
-				String html = (String) bodyPart.getContent();
-		
-				emailText = emailText + "\n" + org.jsoup.Jsoup.parse(html).text();
+				String html = (String) bodyPart.getContent().toString();
+				emailText = emailText + "\n" + org.jsoup.Jsoup.parse(html);
+				System.out.println(emailText);
 			} else if (bodyPart.getContent() instanceof MimeMultipart) {
 				emailText = emailText + getTextFromMultiPart((MimeMultipart) bodyPart.getContent());
 			}
