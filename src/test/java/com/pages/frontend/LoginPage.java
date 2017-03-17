@@ -1,5 +1,7 @@
 package com.pages.frontend;
 
+import org.junit.Assert;
+
 import com.pages.AbstractPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -16,11 +18,14 @@ public class LoginPage extends AbstractPage {
 	@FindBy(css = "button[type='submit']")
 	private WebElementFacade loginButton;
 	
-	@FindBy(css = "a.password-forgotten")
+	@FindBy(css = "a.password-forgotten-link")
 	private WebElementFacade forgotPasswordLink;
 	
 	@FindBy(css = "div.btn")
 	private WebElementFacade createAccountButton;
+	
+	@FindBy(css = "div[class='alert negative'] div")
+	private WebElementFacade loginErrorMessage;
 	
 	
 	public void inputEmail(String email) {
@@ -40,5 +45,13 @@ public class LoginPage extends AbstractPage {
 	
 	public void clickCreateAccountButton() {
 		createAccountButton.click();
+	}
+	
+	public String getLoginPageErrorMessage() {
+		return loginErrorMessage.getText();
+	}
+	
+	public void validateUnsuccessfulLogin(String shownErrorMessage, String errorMessage) {
+		Assert.assertTrue("Error message doe not match", shownErrorMessage.contentEquals(errorMessage));
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.steps.AbstractSteps;
+import com.test.BaseTest;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.pages.WebElementFacade;
@@ -26,6 +27,11 @@ public class HomePageSteps extends AbstractSteps {
 	@Step
 	public void goToLogin() {
 		getHomePage().goToLogin();
+	}
+	
+	@Step
+	public void logout() {
+		getHomePage().logout();
 	}
 	
 	@Step

@@ -83,7 +83,7 @@ public class RegularCheckoutTest extends BaseTest{
 		InputStream inputStream = null;
 		
 		try {
-			inputStream = 	new FileInputStream(ProjectResourcesConstants.SERVER  + shop + File.separator + "checkout" + File.separator + getClass().getSimpleName() + ".properties");
+			inputStream = 	new FileInputStream(ProjectResourcesConstants.SERVER  + BaseTest.getShop() + File.separator + "checkout" + File.separator + getClass().getSimpleName() + ".properties");
 			prop.load(inputStream);
 			customerAccountModel.setEmailAddress(prop.getProperty("email"));
 			customerAccountModel.setPassword(prop.getProperty("password"));
@@ -106,7 +106,7 @@ public class RegularCheckoutTest extends BaseTest{
 	
 	@Test
 	public void performCheckout() {
-		loginSteps.login(BaseTest.getUrl(), customerAccountModel);
+		loginSteps.login(customerAccountModel);
 		headerSteps.goToCart();
 		cartSteps.deleteCart();
 		

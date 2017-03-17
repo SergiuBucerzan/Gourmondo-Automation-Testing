@@ -20,7 +20,7 @@ public class ForgotPasswordPage extends AbstractPage{
 		email.sendKeys(customerEmail);
 	}
 	
-	public void goNext() {
+	public void send() {
 		resetButton.click();
 	}
 

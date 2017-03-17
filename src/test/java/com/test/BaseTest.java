@@ -11,8 +11,10 @@ import org.junit.Before;
 import org.openqa.selenium.WebDriver;
 
 import com.tools.constants.ConfigConstants;
+import com.tools.constants.GmailConstants;
 import com.tools.constants.ProjectResourcesConstants;
 import com.tools.gmail.GmailConnector;
+import com.tools.models.extern.EmailModel;
 import com.tools.mongo.MongoConnector;
 
 import net.thucydides.core.annotations.Managed;
@@ -28,8 +30,8 @@ public class BaseTest {
 	public Pages pages;
 		
 	final static Logger logger = Logger.getLogger(BaseTest.class);
-	MongoConnector mongoConnector;
-	GmailConnector gmailConnector;
+	public MongoConnector mongoConnector;
+	public GmailConnector gmailConnector;
 	
 	protected static String shop = "";
 	protected static String language = "";
@@ -58,7 +60,15 @@ public class BaseTest {
 		
 		
 		//connecting to gmail
-		gmailConnector = new GmailConnector();
+		EmailModel emailModel = new EmailModel();
+		
+		emailModel.setImapGmailCom(GmailConstants.IMAP_GMAIL);
+		emailModel.setImaps(GmailConstants.IMAPS);
+		emailModel.setMailStoreProtocol(GmailConstants.MAIL_STORE_PROTOCOL);
+		emailModel.setPassword(GmailConstants.PASSWORD);
+		emailModel.setEmailAddress(GmailConstants.EMAIL);
+		
+		gmailConnector = new GmailConnector(emailModel);
 		
 	}
 	

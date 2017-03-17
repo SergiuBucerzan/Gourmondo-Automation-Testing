@@ -15,7 +15,7 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeMultipart;
 
-import com.tools.constants.GmailConstants;
+import com.tools.models.extern.EmailModel;
 
 public class GmailConnector {
 
@@ -25,14 +25,15 @@ public class GmailConnector {
 	private String emailAddress = "";
 	private String password = "";
 	
-	public GmailConnector() {
-		mailStoreProtocol = GmailConstants.MAIL_STORE_PROTOCOL;
-		imaps = GmailConstants.IMAPS;
-		imapGmailCom = GmailConstants.IMAP_GMAIL;
-		emailAddress = GmailConstants.EMAIL;
-		password = GmailConstants.PASSWORD;
+	public GmailConnector(EmailModel emailModel) {
+		mailStoreProtocol = emailModel.getMailStoreProtocol();
+		imaps = emailModel.getImaps();
+		imapGmailCom = emailModel.getImapGmailCom();
+		emailAddress = emailModel.getEmailAddress();
+		password = emailModel.getPassword();
 	}
 	
+	//
 	public String getLinkFromEmail(String emailtext, String begin, String end) {
 		String value = "";
 		
@@ -78,7 +79,8 @@ public class GmailConnector {
 		
 		if(!messageReceived) {
 			System.out.println("Message was not received.");
-		}
+		}else
+			System.out.println("Message found!");
 
 		return emailText;
 	}
@@ -88,29 +90,34 @@ public class GmailConnector {
 		String emailText = "";
 		if (message.isMimeType("text/plain")) {
 			emailText = message.getContent().toString();
+			System.out.println("text/plain");
 		} else if(message.isMimeType("multipart/*")) {
 			MimeMultipart mimeMultiPart = (MimeMultipart) message.getContent();
 			emailText = getTextFromMultiPart(mimeMultiPart);
 		}
-
+		System.out.println("type of mail: " + message.getContentType());
 		return emailText;
 	}
 
 	//retrieve multipart content
 	private String getTextFromMultiPart(MimeMultipart mimeMultiPart) throws MessagingException, IOException {
-		String emailText = "";
+		String emailText = "bluf";
 		int count = mimeMultiPart.getCount();
+		System.out.println("parts of email is:" + count);
 		for (int i = 0; i < count; i++) {
 			BodyPart bodyPart = mimeMultiPart.getBodyPart(i);
 			if (bodyPart.isMimeType("text/plain")) {
 				emailText = emailText + "\n" + bodyPart.getContent();
+				System.out.println("multipart text/plain");
 				break;
 			} else if (bodyPart.isMimeType("text/html")) {
 				String html = (String) bodyPart.getContent().toString();
 				emailText = emailText + "\n" + org.jsoup.Jsoup.parse(html);
-				System.out.println(emailText);
+				System.out.println("multipart text/html");
 			} else if (bodyPart.getContent() instanceof MimeMultipart) {
 				emailText = emailText + getTextFromMultiPart((MimeMultipart) bodyPart.getContent());
+				System.out.println("multipart instanceofmimemulti");
+				
 			}
 		}
 
@@ -119,17 +126,32 @@ public class GmailConnector {
 
 	//connecting to gmail inbox
 	private Message[] getEmails() {
+		// defines the protocol which we are going to use for reading emails
 		Properties props = System.getProperties();
 		props.setProperty(mailStoreProtocol, imaps);
 
+		// session for ensureing commnunication
 		Session session = Session.getDefaultInstance(props, null);
+		
+		// empty list of emails
 		Message[] messages = null;
 		try {
+			
+			// get a store object that uses the imap protocol
+			// store object acts like a store for all messages
 			Store store = session.getStore(imaps);
+			
+			// connect to your account - now we can model messages from store 
 			store.connect(imapGmailCom, emailAddress, password);
 
+			// get inbox folder
 			Folder folder = store.getFolder("INBOX");
+			
+			// open folder
 			folder.open(Folder.READ_WRITE);
+			
+			// get messages from folder and put them in messages object
+			// with messages object we can model the email message/content
 			messages = folder.getMessages();
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block

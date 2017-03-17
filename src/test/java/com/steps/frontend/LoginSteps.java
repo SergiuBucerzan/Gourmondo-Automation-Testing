@@ -1,6 +1,7 @@
 package com.steps.frontend;
 
 import com.steps.AbstractSteps;
+import com.test.BaseTest;
 import com.tools.models.frontend.CustomerAccountModel;
 
 import net.thucydides.core.annotations.Step;
@@ -11,8 +12,8 @@ public class LoginSteps extends AbstractSteps {
 	private static final long serialVersionUID = 1L;
 	
 	@StepGroup
-	public void  login(String url, CustomerAccountModel customerAccountModel) {
-		goToUrl(url);
+	public void  login(CustomerAccountModel customerAccountModel) {
+		goToUrl(BaseTest.getUrl());
 		goToLogin();
 		inputEmail(customerAccountModel.getEmailAddress());
 		inputPassword(customerAccountModel.getPassword());
@@ -42,6 +43,20 @@ public class LoginSteps extends AbstractSteps {
 	@Step
 	public void clickCreateAccount() {
 		getLoginPage().clickCreateAccountButton();
+	}
+	
+	@Step
+	public void clickForgotPasswordLink() {
+		getLoginPage().clickForgotPasswordLink();
+	}
+	
+	@Step
+	public void validateUnsuccessfulLogin(String shownErrorMessage, String errorMessage) {
+		getLoginPage().validateUnsuccessfulLogin(shownErrorMessage, errorMessage);
+	}
+	
+	public String getLoginPageErrorMessage() {
+		return getLoginPage().getLoginPageErrorMessage();
 	}
 
 }

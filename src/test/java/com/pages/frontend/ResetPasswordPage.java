@@ -5,7 +5,7 @@ import com.pages.AbstractPage;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
-public class RessetPasswordPage extends AbstractPage {
+public class ResetPasswordPage extends AbstractPage {
 
 	@FindBy(css = "input[id='change.password.password']")
 	WebElementFacade newPassword;

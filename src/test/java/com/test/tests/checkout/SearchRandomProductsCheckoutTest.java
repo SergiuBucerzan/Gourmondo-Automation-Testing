@@ -103,7 +103,7 @@ public class SearchRandomProductsCheckoutTest extends BaseTest{
 	
 	@Test
 	public void performCheckout() {
-		loginSteps.login(url, customerAccountModel);
+		loginSteps.login(customerAccountModel);
 		headerSteps.goToCart();
 		cartSteps.deleteCart();
 		

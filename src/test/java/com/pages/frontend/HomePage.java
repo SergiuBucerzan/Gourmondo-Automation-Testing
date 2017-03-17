@@ -28,8 +28,15 @@ public class HomePage extends AbstractPage{
 	@FindBy (id = "navbar")
 	WebElementFacade categoryContainer;
 	
+	@FindBy(css="div.logout a:nth-child(1)")
+	WebElementFacade logout;
+	
 	public void goToLogin() {
 		login.click();
+	}
+	
+	public void logout() {
+		logout.click();
 	}
 	
 	public void inputKeyword(String keyword) {

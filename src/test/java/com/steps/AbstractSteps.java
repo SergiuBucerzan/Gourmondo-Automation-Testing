@@ -4,25 +4,25 @@ import com.pages.AbstractPage;
 import com.pages.frontend.CartPage;
 import com.pages.frontend.CategoryPage;
 import com.pages.frontend.CustomerRegistrationPage;
+import com.pages.frontend.ForgotPasswordPage;
 import com.pages.frontend.HeaderPage;
 import com.pages.frontend.HomePage;
 import com.pages.frontend.LoginPage;
 import com.pages.frontend.MyAccountPage;
 import com.pages.frontend.ProductListingPage;
+import com.pages.frontend.ResetPasswordPage;
 import com.pages.frontend.SearchResultsPage;
-import com.pages.hmc.order.HmcOrdersEditorPage;
 import com.pages.hmc.HmcExplorerTreePage;
 import com.pages.hmc.HmcLoginPage;
 import com.pages.hmc.order.HmcOrderPage;
+import com.pages.hmc.order.HmcOrdersEditorPage;
 import com.pages.hmc.order.HmcOrdersResultsPage;
 import com.pages.hmc.order.HmcOrdersSearchPage;
 import com.pages.hmc.user.HmcUserPage;
 import com.pages.hmc.user.customers.HmcCustomersEditorPage;
 import com.pages.hmc.user.customers.HmcCustomersResultsPage;
 import com.pages.hmc.user.customers.HmcCustomersSearchPage;
-import com.tools.models.hmc.HmcCustomerAccountModel;
 
-import net.thucydides.core.annotations.Step;
 import net.thucydides.core.steps.ScenarioSteps;
 
 public class AbstractSteps extends ScenarioSteps{
@@ -39,7 +39,14 @@ public class AbstractSteps extends ScenarioSteps{
 		getDriver().manage().window().maximize();
 	}
 	
-	@Step
+	public void quitBrowser() {
+		getDriver().quit();
+	}
+	
+	public String getPageUrl() {
+		return getDriver().getCurrentUrl();
+	}
+	
 	public void scrollToPageBottom(){
 		getAbstractPage().scrollToPageBottom();
 	}
@@ -132,4 +139,13 @@ public class AbstractSteps extends ScenarioSteps{
 	public HmcOrdersResultsPage getHmcOrdersResultsPage() {
 		return getPages().currentPageAt(HmcOrdersResultsPage.class);
 	}
+	
+	public ForgotPasswordPage getForgotPasswordPage() {
+		return getPages().currentPageAt(ForgotPasswordPage.class);
+	}
+	
+	public ResetPasswordPage getResetPasswordPage() {
+		return getPages().currentPageAt(ResetPasswordPage.class);
+	}
+	
 }
