@@ -19,18 +19,21 @@ public class JavaMailAPIConnector {
 
 	private String mailStoreProtocol = "";
 	private String imaps = "";
-	private String imapGmailCom = "";
-	private String imapYahooCom = "";
+	private String imapEmailCom = "";
 	private String emailAddress = "";
 	private String password = "";
 	
-	public JavaMailAPIConnector(String mailStoreProtocol, String imaps, String imapGmailCom, String emailAddress, String password) {
+	
+	public JavaMailAPIConnector (String mailStoreProtocol, String imaps, String imapEmailCom, String emailAddress, String password) {
+
 		this.mailStoreProtocol = mailStoreProtocol;
 		this.imaps = imaps;
-		this.imapGmailCom = imapGmailCom;
+		this.imapEmailCom = imapEmailCom;
 		this.emailAddress = emailAddress;
 		this.password = password;
+		
 	}
+	
 
 	//
 	public String getLinkFromEmail(String emailtext, String begin, String end) {
@@ -47,9 +50,9 @@ public class JavaMailAPIConnector {
 	}
 	
 	// search for a specific email 
-	public String searchEmailFromGmail(String emailAddressFrom, String subject) {
+	public String searchEmail(String emailAddressFrom, String subject) {
 		String emailText = "";
-		Message[] message = getEmailsFromGmail();
+		Message[] message = getEmails();
 		boolean messageReceived = false;
 		
 		outerloop:
@@ -124,7 +127,7 @@ public class JavaMailAPIConnector {
 	}
 
 	//connecting to gmail inbox
-	private Message[] getEmailsFromGmail() {
+	private Message[] getEmails() {
 		// defines the protocol which we are going to use for reading emails
 		Properties props = System.getProperties();
 		props.setProperty(mailStoreProtocol, imaps);
@@ -141,7 +144,7 @@ public class JavaMailAPIConnector {
 			Store store = session.getStore(imaps);
 			
 			// connect to your account - now we can model messages from store 
-			store.connect(imapGmailCom, emailAddress, password);
+			store.connect(imapEmailCom, emailAddress, password);
 
 			// get inbox folder
 			Folder folder = store.getFolder("INBOX");
@@ -160,4 +163,5 @@ public class JavaMailAPIConnector {
 		return messages;
 
 	}
+	
 }

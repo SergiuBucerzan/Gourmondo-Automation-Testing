@@ -30,7 +30,6 @@ public class BaseTest {
 		
 	final static Logger logger = Logger.getLogger(BaseTest.class);
 	public MongoConnector mongoConnector;
-	public JavaMailAPIConnector emailConnector;
 	
 	protected static String shop = "";
 	protected static String language = "";
@@ -57,9 +56,6 @@ public class BaseTest {
 		//read and set url from config file
 		setUrl();
 		
-		
-		//connecting to gmail		
-		emailConnector = new JavaMailAPIConnector(JavaMailAPIConstants.IMAP_GMAIL, JavaMailAPIConstants.IMAPS, JavaMailAPIConstants.MAIL_STORE_PROTOCOL, JavaMailAPIConstants.PASSWORD, JavaMailAPIConstants.EMAIL);
 		
 	}
 	

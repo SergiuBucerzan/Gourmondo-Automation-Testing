@@ -44,6 +44,8 @@ public class ResetPasswordTest extends BaseTest {
 	
 	public CustomerAccountModel customerModel = new CustomerAccountModel();
 	
+	public JavaMailAPIConnector emailConnector;
+	
 	String email, password, newPassword, begin, end, emailSubject, forgotPasswordEmailFrom = "";
 	String myAccountMessage = "";
 	String loginPageErrorMessage = "";
@@ -87,7 +89,8 @@ public class ResetPasswordTest extends BaseTest {
 		customerModel.setEmailAddress(email);
 		customerModel.setPassword(password);
 		
-		emailConnector = new JavaMailAPIConnector(JavaMailAPIConstants.IMAP_GMAIL, JavaMailAPIConstants.IMAPS, JavaMailAPIConstants.MAIL_STORE_PROTOCOL, JavaMailAPIConstants.PASSWORD, JavaMailAPIConstants.EMAIL);
+		emailConnector = new JavaMailAPIConnector(JavaMailAPIConstants.IMAP_GMAIL, JavaMailAPIConstants.IMAPS, JavaMailAPIConstants.MAIL_STORE_PROTOCOL, email, password);
+		
 	}
 	
 	@Test
@@ -97,7 +100,7 @@ public class ResetPasswordTest extends BaseTest {
 		homePageSteps.goToLogin();
 		loginSteps.clickForgotPasswordLink();
 		forgotPasswordSteps.sendEmail(email);
-		String text = emailConnector.searchEmailFromGmail(forgotPasswordEmailFrom, emailSubject);
+		String text = emailConnector.searchEmail(forgotPasswordEmailFrom, emailSubject);
 		String link = emailConnector.getLinkFromEmail(text, begin, end);
 		forgotPasswordSteps.goToUrl(link);
 		resetPasswordSteps.resetPassword(newPassword);
