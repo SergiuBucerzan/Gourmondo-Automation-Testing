@@ -15,24 +15,23 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeMultipart;
 
-import com.tools.models.extern.EmailModel;
-
-public class GmailConnector {
+public class JavaMailAPIConnector {
 
 	private String mailStoreProtocol = "";
 	private String imaps = "";
 	private String imapGmailCom = "";
+	private String imapYahooCom = "";
 	private String emailAddress = "";
 	private String password = "";
 	
-	public GmailConnector(EmailModel emailModel) {
-		mailStoreProtocol = emailModel.getMailStoreProtocol();
-		imaps = emailModel.getImaps();
-		imapGmailCom = emailModel.getImapGmailCom();
-		emailAddress = emailModel.getEmailAddress();
-		password = emailModel.getPassword();
+	public JavaMailAPIConnector(String mailStoreProtocol, String imaps, String imapGmailCom, String emailAddress, String password) {
+		this.mailStoreProtocol = mailStoreProtocol;
+		this.imaps = imaps;
+		this.imapGmailCom = imapGmailCom;
+		this.emailAddress = emailAddress;
+		this.password = password;
 	}
-	
+
 	//
 	public String getLinkFromEmail(String emailtext, String begin, String end) {
 		String value = "";
@@ -48,9 +47,9 @@ public class GmailConnector {
 	}
 	
 	// search for a specific email 
-	public String searchEmail(String emailAddressFrom, String subject) {
+	public String searchEmailFromGmail(String emailAddressFrom, String subject) {
 		String emailText = "";
-		Message[] message = getEmails();
+		Message[] message = getEmailsFromGmail();
 		boolean messageReceived = false;
 		
 		outerloop:
@@ -125,12 +124,12 @@ public class GmailConnector {
 	}
 
 	//connecting to gmail inbox
-	private Message[] getEmails() {
+	private Message[] getEmailsFromGmail() {
 		// defines the protocol which we are going to use for reading emails
 		Properties props = System.getProperties();
 		props.setProperty(mailStoreProtocol, imaps);
 
-		// session for ensureing commnunication
+		// get the session for ensureing commnunication
 		Session session = Session.getDefaultInstance(props, null);
 		
 		// empty list of emails
