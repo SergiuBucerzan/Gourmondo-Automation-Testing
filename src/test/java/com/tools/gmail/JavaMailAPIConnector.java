@@ -49,6 +49,7 @@ public class JavaMailAPIConnector {
 		return value;
 	}
 	
+	
 	// search for a specific email 
 	public String searchEmail(String emailAddressFrom, String subject) {
 		String emailText = "";
@@ -143,7 +144,7 @@ public class JavaMailAPIConnector {
 			// store object acts like a store for all messages
 			Store store = session.getStore(imaps);
 			
-			// connect to your account - now we can model messages from store 
+			// connect to your account - now we can model folder messages from store 
 			store.connect(imapEmailCom, emailAddress, password);
 
 			// get inbox folder

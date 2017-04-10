@@ -6,10 +6,11 @@ import com.tools.gmail.JavaMailAPIConnector;
 public class TestAnything {
 
 	public static void main(String[] args) {
-		JavaMailAPIConnector emailConnector = new JavaMailAPIConnector(JavaMailAPIConstants.IMAP_GMAIL, JavaMailAPIConstants.IMAPS, JavaMailAPIConstants.MAIL_STORE_PROTOCOL, "", "");
+		JavaMailAPIConnector emailConnector = new JavaMailAPIConnector(JavaMailAPIConstants.MAIL_STORE_PROTOCOL, JavaMailAPIConstants.IMAPS, JavaMailAPIConstants.IMAP_GMAIL, "", "");
 		String text = emailConnector.searchEmail("info@gourmondo.de", "Mitteilung von www.gourmondo.de");
 		String link = emailConnector.getLinkFromEmail(text, "border-radius: 5px;\" href=\"", "\">PASSWORT");
-		System.out.println(link);
+		//String text = emailConnector.searchEmail("ciprian.mocian@evozon.com", "test");
+		System.out.println(text);
 
 	}
 
