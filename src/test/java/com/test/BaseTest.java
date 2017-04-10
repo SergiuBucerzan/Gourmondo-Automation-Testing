@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
 import com.tools.constants.ConfigConstants;
 import com.tools.constants.JavaMailAPIConstants;
 import com.tools.constants.ProjectResourcesConstants;
-import com.tools.gmail.JavaMailAPIConnector;
+import com.tools.email.JavaMailAPIConnector;
 import com.tools.mongo.MongoConnector;
 
 import net.thucydides.core.annotations.Managed;

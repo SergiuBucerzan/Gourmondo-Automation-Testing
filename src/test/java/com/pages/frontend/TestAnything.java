@@ -1,7 +1,7 @@
 package com.pages.frontend;
 
 import com.tools.constants.JavaMailAPIConstants;
-import com.tools.gmail.JavaMailAPIConnector;
+import com.tools.email.JavaMailAPIConnector;
 
 public class TestAnything {
 

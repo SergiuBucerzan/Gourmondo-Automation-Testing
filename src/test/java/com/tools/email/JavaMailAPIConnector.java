@@ -1,4 +1,4 @@
-package com.tools.gmail;
+package com.tools.email;
 
 import java.io.IOException;
 import java.util.Properties;

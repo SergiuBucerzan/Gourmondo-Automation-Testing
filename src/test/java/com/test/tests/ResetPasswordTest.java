@@ -18,7 +18,7 @@ import com.steps.frontend.ResetPasswordSteps;
 import com.test.BaseTest;
 import com.tools.constants.JavaMailAPIConstants;
 import com.tools.constants.ProjectResourcesConstants;
-import com.tools.gmail.JavaMailAPIConnector;
+import com.tools.email.JavaMailAPIConnector;
 import com.tools.models.frontend.CustomerAccountModel;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
