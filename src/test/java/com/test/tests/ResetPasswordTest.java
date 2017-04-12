@@ -89,7 +89,7 @@ public class ResetPasswordTest extends BaseTest {
 		customerModel.setEmailAddress(email);
 		customerModel.setPassword(password);
 		
-		emailConnector = new JavaMailAPIConnector(JavaMailAPIConstants.IMAP_GMAIL, JavaMailAPIConstants.IMAPS, JavaMailAPIConstants.MAIL_STORE_PROTOCOL, email, password);
+		emailConnector = new JavaMailAPIConnector(JavaMailAPIConstants.MAIL_STORE_PROTOCOL, JavaMailAPIConstants.IMAPS, JavaMailAPIConstants.IMAP_GMAIL, email, password);
 		
 	}
 	
