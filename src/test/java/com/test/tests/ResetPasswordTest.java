@@ -114,7 +114,6 @@ public class ResetPasswordTest extends BaseTest {
 		loginSteps.clickLoginButton();
 		String myAccountUrl = myAccountSteps.getPageUrl();
 		myAccountSteps.validateMyAccountPage(myAccountUrl, myAccountMessage);
-		
 	}
 	
 	

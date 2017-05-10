@@ -1,5 +1,11 @@
 package com.test.tests;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +16,7 @@ import com.steps.frontend.LoginSteps;
 import com.steps.frontend.CustomerRegistrationSteps;
 import com.test.BaseTest;
 import com.tools.constants.MongoConstants;
+import com.tools.constants.ProjectResourcesConstants;
 import com.tools.factory.CustomerAccountModelFactory;
 import com.tools.models.frontend.CustomerAccountModel;
 import com.tools.mongo.MongoConnector;
@@ -43,7 +50,7 @@ public class CustomerRegistrationTest extends BaseTest{
 	
 	@Test
 	public void registerNewCustomerTest() {
-		homePage.goToUrl(MongoReader.getGourmondoURL());
+		homePage.goToUrl(BaseTest.getUrl());
 		homePage.goToLogin();
 		loginSteps.clickCreateAccount();
 		customerRegistrationSteps.fillCustomerRegistrationForm(registrationFormModel);

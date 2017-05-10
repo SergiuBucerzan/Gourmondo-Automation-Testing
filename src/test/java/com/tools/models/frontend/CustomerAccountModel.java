@@ -11,16 +11,16 @@ import com.tools.utils.FieldGenerator.TypeOfString;
 
 public class CustomerAccountModel extends CustomerAccountModelFactory{
 
-	private String salutation = "";
-	private String firstName = "";
-	private String lastName = "";	
-	private String emailAddress = "";
+	private String salutation;
+	private String firstName;
+	private String lastName;	
+	private String emailAddress;
 	private String day;
-	private String month = "";
-	private String year = "";
-	private String password = "";
-	private String passwordConfirmation = "";
-	private String customerId = "";
+	private String month;
+	private String year;
+	private String password;
+	private String passwordConfirmation;
+	private String customerId;
 	
 	public String getSalutation() {
 		return salutation;

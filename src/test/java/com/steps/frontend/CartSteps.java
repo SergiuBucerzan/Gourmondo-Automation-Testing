@@ -17,8 +17,7 @@ public class CartSteps extends AbstractSteps {
 
 	@StepGroup
 	public void deleteCart() {
-		selectProductsFromCart();
-		deleteSelectedItems();
+		delectCartItems();
 	}
 	
 	@Step
@@ -29,6 +28,11 @@ public class CartSteps extends AbstractSteps {
 	@Step
 	public void deleteSelectedItems() {
 		getCartPAge().deleteSelectedItems();
+	}
+	
+	@Step
+	public void delectCartItems() {
+		getCartPage().deleteCartItems();
 	}
 
 	@Step

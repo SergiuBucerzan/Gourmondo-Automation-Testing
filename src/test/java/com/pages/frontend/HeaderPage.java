@@ -7,10 +7,10 @@ import net.serenitybdd.core.annotations.findby.By;
 public class HeaderPage extends AbstractPage{
 
 	public void goToHomePage() {
-		getDriver().findElement(By.cssSelector("div.logo a")).click();
+		getDriver().findElement(By.cssSelector("div.logo-wrapper")).click();
 	}
 	
 	public void goToCart() {
-		getDriver().findElement(By.cssSelector("div.miniCart a")).click();
+		getDriver().findElement(By.cssSelector("div.miniCart")).click();
 	}
 }
