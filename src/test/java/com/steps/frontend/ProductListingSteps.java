@@ -46,12 +46,12 @@ public class ProductListingSteps extends AbstractSteps{
 	}
 	
 	
-	public boolean validatePopupSuccessMessage() {
-		return getProductListingPage().validatePopupSuccessMessage();
+	public boolean validatePopupSuccessMessage(String message) {
+		return getProductListingPage().validatePopupSuccessMessage(message);
 	}
 	
-	public void validatePopupSuccess() {
-	    getProductListingPage().validatePopupSuccess();
+	public void validatePopupSuccess(String message) {
+	    getProductListingPage().validatePopupSuccess(message);
 	}
 
 }

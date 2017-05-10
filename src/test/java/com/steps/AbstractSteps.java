@@ -3,6 +3,7 @@ package com.steps;
 import com.pages.AbstractPage;
 import com.pages.frontend.CartPage;
 import com.pages.frontend.CategoryPage;
+import com.pages.frontend.CheckoutDeliveryAddressPage;
 import com.pages.frontend.CustomerRegistrationPage;
 import com.pages.frontend.ForgotPasswordPage;
 import com.pages.frontend.HeaderPage;
@@ -146,6 +147,10 @@ public class AbstractSteps extends ScenarioSteps{
 	
 	public ResetPasswordPage getResetPasswordPage() {
 		return getPages().currentPageAt(ResetPasswordPage.class);
+	}
+	
+	public CheckoutDeliveryAddressPage getCheckoutDeliveryAddressPage() {
+		return getPages().currentPageAt(CheckoutDeliveryAddressPage.class);
 	}
 	
 }

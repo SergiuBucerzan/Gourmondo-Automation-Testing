@@ -14,8 +14,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.pages.frontend.CheckoutDeliveryAddressPage;
 import com.steps.frontend.CartSteps;
 import com.steps.frontend.CategorySteps;
+import com.steps.frontend.CheckoutDeliveryAddressSteps;
+import com.steps.frontend.CustomerRegistrationSteps;
 import com.steps.frontend.HeaderSteps;
 import com.steps.frontend.HomePageSteps;
 import com.steps.frontend.LoginSteps;
@@ -24,6 +27,7 @@ import com.test.BaseTest;
 import com.tools.constants.ProjectResourcesConstants;
 import com.tools.models.frontend.CartEntryModel;
 import com.tools.models.frontend.CustomerAccountModel;
+import com.tools.models.frontend.CustomerAddressModel;
 import com.tools.models.frontend.ProductModel;
 import com.tools.mongo.MongoConnector;
 
@@ -53,8 +57,16 @@ public class RegularCheckoutTest extends BaseTest{
 	
 	@Steps
 	public CartSteps cartSteps;
+	
+	@Steps
+	public CheckoutDeliveryAddressSteps checkoutDeliveryAddressSteps;
+	
+	@Steps
+	public CustomerRegistrationSteps customerRegistrationSteps;
 	 
 	public CustomerAccountModel customerAccountModel = new CustomerAccountModel();
+	
+	public CustomerAddressModel customerAddressModel = new CustomerAddressModel();
 	
 	public List<ProductModel> productModelList = new ArrayList<>();
 	
@@ -62,13 +74,15 @@ public class RegularCheckoutTest extends BaseTest{
 	
 	public List<CartEntryModel> cartEntryModelList = new ArrayList<>();
 	
-	public List<WebElementFacade> productList;
+//	public List<WebElementFacade> productList;
 	
-	public List<WebElementFacade> availableProductsList;
+//	public List<WebElementFacade> availableProductsList;
 	
 	public List<String> products = new ArrayList<>();
 	
 	public double price = 0.0;
+	
+	public String message = "";
 	
 	public double cartCalculatedTotal = 0.0;
 	
@@ -83,12 +97,20 @@ public class RegularCheckoutTest extends BaseTest{
 		InputStream inputStream = null;
 		
 		try {
-			inputStream = 	new FileInputStream(ProjectResourcesConstants.SERVER  + BaseTest.getShop() + File.separator + "checkout" + File.separator + getClass().getSimpleName() + ".properties");
+			inputStream = new FileInputStream(ProjectResourcesConstants.SERVER  + BaseTest.getShop() + File.separator + "checkout" + File.separator + getClass().getSimpleName() + ".properties");
 			prop.load(inputStream);
 			customerAccountModel.setEmailAddress(prop.getProperty("email"));
 			customerAccountModel.setPassword(prop.getProperty("password"));
 			products.add(prop.getProperty("product1"));
-			products.add(prop.getProperty("product2"));
+//			products.add(prop.getProperty("product2"));
+			message = prop.getProperty("successMessage");
+			customerAddressModel.setFirstName(prop.getProperty("firstName"));
+			customerAddressModel.setLastName(prop.getProperty("lastName"));
+			customerAddressModel.setStreetName(prop.getProperty("streetName"));
+			customerAddressModel.setStreetNumber(prop.getProperty("streetNumber"));
+			customerAddressModel.setZipCode(prop.getProperty("zipCode"));
+			customerAddressModel.setTown(prop.getProperty("town"));
+			customerAddressModel.setPhoneNumber(prop.getProperty("phoneNumber"));
 		}catch(IOException e) {
 			e.printStackTrace();
 		}finally {
@@ -110,13 +132,14 @@ public class RegularCheckoutTest extends BaseTest{
 		headerSteps.goToCart();
 		cartSteps.deleteCart();
 		
+		
 	    //go to product listing page randomly
 		headerSteps.goToHomePage();
 		
 		for(String product: products) {
 			homePageSteps.searchKeyword(product);
 			productModel = productListingSteps.addProductToCart();
-			productListingSteps.validatePopupSuccess();
+			productListingSteps.validatePopupSuccess(message);
 			productModelList.add(productModel);
 		}
 		
@@ -132,9 +155,10 @@ public class RegularCheckoutTest extends BaseTest{
 		cartSteps.validateCartTotal(cartCalculatedTotal, cartValueAsDisplayed);
 		cartSteps.validateTotalCartAndTotalValueOfAddedProducts(price, cartCalculatedTotal);
 		cartSteps.validateNoOfAddedProductsWithNoOfCartProducts(productModelList.size(), noOfProductsInCart);
-		cartSteps.pay();		
+		cartSteps.pay();	
+		checkoutDeliveryAddressSteps.fillInCustomerAddressForm(customerAddressModel);
 	}
-	
+
 	@After
 	public void saveTestData() {
 	}

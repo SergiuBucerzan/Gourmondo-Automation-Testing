@@ -13,7 +13,7 @@ import net.serenitybdd.core.pages.PageObject;
 
 public class AbstractPage extends PageObject {
 
-	final static Logger logger = Logger.getLogger(AbstractPage.class);
+	protected final static Logger logger = Logger.getLogger(AbstractPage.class);
 	
 	public WebElement waitForElementByCssLocator(String cssLocator) {
 		return (new WebDriverWait(getDriver(), 20))

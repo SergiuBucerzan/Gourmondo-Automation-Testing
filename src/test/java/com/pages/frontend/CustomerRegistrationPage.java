@@ -15,7 +15,7 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class CustomerRegistrationPage extends AbstractPage {
 	
-	@FindBy(css = "div.btn-group")
+	@FindBy(css = "div#registerClientForm-titleCode")
 	private WebElementFacade salutation;
 	
 	@FindBy(css = "input#registerClientForm-firstName")
@@ -27,13 +27,13 @@ public class CustomerRegistrationPage extends AbstractPage {
 	@FindBy(css = "input#registerClientForm-email")
 	private WebElementFacade emailAddressInput;
 	
-	@FindBy(css = "div#registerClientForm-select-birthday-day")
+	@FindBy(css = "section.SelectDate:nth-child(1)")
 	private WebElementFacade birthdayDay;
 	
-	@FindBy(css = "div#registerClientForm-select-birthday-month")
+	@FindBy(css = "section.SelectDate:nth-child(2)")
 	private WebElementFacade birthdayMonth;
 	
-	@FindBy(css = "div#registerClientForm-select-birthday-year")
+	@FindBy(css = "section.SelectDate:nth-child(3)")
 	private WebElementFacade birthdayYear;
 	
 	@FindBy(css = "input#registerClientForm-password")
@@ -59,11 +59,10 @@ public class CustomerRegistrationPage extends AbstractPage {
 		salutation.click();
 		List<WebElementFacade> salutationList = salutation.thenFindAll(By.cssSelector("div.dropdown-menu ul li a"));
 		for (WebElementFacade item : salutationList) {
-			if (item.getText().trim().contentEquals(gender)) {
-				item.click();				
-				break;
+			if (item.getTextValue().trim().contentEquals(gender)) {
+				item.click();
 			}				
-		}
+		}		
 	}
 	
 	public void inputFirstName(String firstName) {
@@ -80,9 +79,9 @@ public class CustomerRegistrationPage extends AbstractPage {
 	
 	public void selectDay(String day) {
 		birthdayDay.click();
-		List<WebElementFacade> dayList = birthdayDay.thenFindAll(By.cssSelector("ul li"));
+		List<WebElementFacade> dayList = birthdayDay.thenFindAll(By.cssSelector("ul li a span"));
 		for (WebElementFacade item : dayList) {
-			if (item.getAttribute("id").contentEquals(day)) {
+			if (item.getTextValue().trim().contains(day)) {
 				item.click();
 			}				
 		}
@@ -90,9 +89,9 @@ public class CustomerRegistrationPage extends AbstractPage {
 	
 	public void selectMonth(String month) {
 		birthdayMonth.click();
-		List<WebElementFacade> monthList = birthdayMonth.thenFindAll(By.cssSelector("ul li"));
+		List<WebElementFacade> monthList = birthdayMonth.thenFindAll(By.cssSelector("ul li a span"));
 		for (WebElementFacade item : monthList) {
-			if (item.getAttribute("id").contentEquals(month)) {
+			if (item.getTextValue().trim().contains(month)) {
 				item.click();
 			}				
 		}
@@ -100,9 +99,9 @@ public class CustomerRegistrationPage extends AbstractPage {
 	
 	public void selectYear(String year) {
 		birthdayYear.click();
-		List<WebElementFacade> yearList = birthdayYear.thenFindAll(By.cssSelector("ul li"));
+		List<WebElementFacade> yearList = birthdayYear.thenFindAll(By.cssSelector("ul li a span"));
 		for (WebElementFacade item : yearList) {
-			if (item.getAttribute("id").contentEquals(year)) {
+			if (item.getTextValue().trim().contains(year)) {
 				item.click();
 			}				
 		}

@@ -24,13 +24,12 @@ public class SearchResultsPage extends AbstractPage {
 		
 		waitForPageToLoad();
 		WebElement productListContainer = waitForElementByCssLocator(serchResultsContainer);
-		List<WebElement> productList = productListContainer.findElements(By.cssSelector("div.description-wrapper div.product"));
+		List<WebElement> productList = productListContainer.findElements(By.cssSelector("div.product div.description-wrapper"));
 		
 		for (WebElement result : productList) {
 			ProductModel product = new ProductModel();
 			String price = StringUtils.cleanPrice(result.findElement(By.cssSelector("div.price")).getText());
-			String name = result.findElement(By.cssSelector("span[itemprop='name']")).getText();
-			
+			String name = result.findElement(By.cssSelector("h4.truncate-text")).getText();
 			product.setName(name);
 			product.setPrice(price);
 			productResults.add(product);

@@ -22,10 +22,7 @@ public class CustomerAccountModelFactory {
 		registrationModel.setMonth(month);
 		registrationModel.setYear(year);
 		registrationModel.setPassword();
-		
-		
-		return registrationModel;
-		
+		return registrationModel;		
 	}
 
 }

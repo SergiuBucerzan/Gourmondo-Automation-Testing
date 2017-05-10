@@ -20,12 +20,12 @@ public class HomePage extends AbstractPage{
 	WebElementFacade login;
 	
 	@FindBy (id = "search")
-	WebElementFacade serachBox;
+	WebElementFacade searchBox;
 	
 	@FindBy (css = "button.search-button")
 	WebElementFacade submitButton;
 	
-	@FindBy (id = "navbar")
+	@FindBy (css = "div#navbar")
 	WebElementFacade categoryContainer;
 	
 	@FindBy(css="div.logout a:nth-child(1)")
@@ -40,7 +40,7 @@ public class HomePage extends AbstractPage{
 	}
 	
 	public void inputKeyword(String keyword) {
-		serachBox.sendKeys(keyword);
+		searchBox.sendKeys(keyword);
 	}
 	
 	public void search() {
@@ -49,7 +49,7 @@ public class HomePage extends AbstractPage{
 	
 	public void getRandomCategory() {
 		categoryContainer.waitUntilVisible();
-		List<WebElementFacade> listOfCategories = categoryContainer.thenFindAll(By.cssSelector("ul li[class='root-category selected-category ']"));
+		List<WebElementFacade> listOfCategories = categoryContainer.thenFindAll(By.cssSelector("ul li.root-category"));
 		Random random = new Random();
 		if (listOfCategories.size() > 0) {
 			WebElementFacade category = listOfCategories.get(random.nextInt(listOfCategories.size()));

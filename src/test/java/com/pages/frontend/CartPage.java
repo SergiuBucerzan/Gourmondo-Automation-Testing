@@ -3,16 +3,13 @@ package com.pages.frontend;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-
 import com.pages.AbstractPage;
 import com.tools.models.frontend.CartEntryModel;
 import com.tools.mongo.reader.MongoReader;
 import com.tools.utils.StringUtils;
-
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -31,11 +28,13 @@ public class CartPage extends AbstractPage {
 
 	@FindBy(css = "button#remove-selected-items-button")
 	WebElementFacade deleteSelectedItemsButton;
+	
+	@FindBy(css = "button#checkout-empty-cart-button")
+	WebElementFacade deleteCart;
 
 	public void selectProductsFromCart() {
 		if (deleteSelectedItemsButton.isVisible()) {
-			List<WebElementFacade> cartList = cartItems
-					.thenFindAll(By.cssSelector("div.product-entry div.index-wrapper label"));
+			List<WebElementFacade> cartList = cartItems.thenFindAll(By.cssSelector("div.product-entry div.index-wrapper label"));
 			for (WebElementFacade item : cartList) {
 				item.click();
 			}
@@ -48,6 +47,16 @@ public class CartPage extends AbstractPage {
 			logger.info("Cart was deleted");
 		}
 	}
+	
+	public void deleteCartItems() {
+		if (cartItems.isVisible()) {
+			waitABit(2000);
+			deleteCart.click();
+			System.out.println("Item/s removed from cart");
+		} else  {			
+			System.out.println("Cart is empty!");			
+		}
+	}
 
 	public void pay() {
 		payButton.click();
@@ -55,15 +64,14 @@ public class CartPage extends AbstractPage {
 
 	public List<CartEntryModel> getCartProducts() {
 		List<CartEntryModel> productList = new ArrayList<>();
-		List<WebElementFacade> itemsList = cartItems.thenFindAll(By.cssSelector("div.product-entry"));
+		List<WebElementFacade> itemsList = cartItems.thenFindAll(By.cssSelector("li.product-entry"));
 		
 		for (WebElementFacade item : itemsList) {
 			CartEntryModel product = new CartEntryModel();
 			product.setName(item.find(By.cssSelector("div.product-details a")).getText());
-			product.setPrice(StringUtils
-					.cleanPrice(item.find(By.cssSelector("div.product-details span.product-price")).getText()));
+			product.setPrice(StringUtils.cleanPrice(item.find(By.cssSelector("div.product-details span.product-price")).getText()));
 			product.setTotalPrice(StringUtils.cleanPrice(item.find(By.cssSelector("div.amount-price")).getText()));
-			product.setQuantity(item.find(By.cssSelector("div.quantity input[name='quantity']")).getAttribute("value"));
+			product.setQuantity(item.find(By.cssSelector("div.quantity input[name='initialQuantity']")).getAttribute("value"));
 
 			productList.add(product);
 		}
@@ -84,6 +92,7 @@ public class CartPage extends AbstractPage {
 		BigDecimal cartTotal = new BigDecimal("0.0");
 		
 		for (CartEntryModel product : productList) {
+			System.out.println(product.getTotalPrice());
 			BigDecimal productPrice = new BigDecimal(Double.valueOf(product.getTotalPrice()));
 			cartTotal = cartTotal.add(productPrice);
 		}
@@ -100,7 +109,8 @@ public class CartPage extends AbstractPage {
 	// VALIDATIONS
 
 	public void validateCartEntryTotal(List<CartEntryModel> productList) {
-		for (CartEntryModel entry : productList) {
+		for (CartEntryModel entry : productList) {			
+//			BigDecimal productPrice = new BigDecimal(Double.valueOf(entry.getPrice()));
 			double productPrice = Double.valueOf(entry.getPrice()) * Double.valueOf(entry.getQuantity());
 			double entryPrice = Double.valueOf(entry.getTotalPrice());
 			logger.info("cart entry validation: " + productPrice + "----------" + entryPrice);

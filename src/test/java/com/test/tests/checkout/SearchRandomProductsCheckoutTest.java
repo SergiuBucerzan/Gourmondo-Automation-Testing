@@ -16,6 +16,8 @@ import org.junit.runner.RunWith;
 
 import com.steps.frontend.CartSteps;
 import com.steps.frontend.CategorySteps;
+import com.steps.frontend.CheckoutDeliveryAddressSteps;
+import com.steps.frontend.CustomerRegistrationSteps;
 import com.steps.frontend.HeaderSteps;
 import com.steps.frontend.HomePageSteps;
 import com.steps.frontend.LoginSteps;
@@ -24,6 +26,7 @@ import com.test.BaseTest;
 import com.tools.constants.ProjectResourcesConstants;
 import com.tools.models.frontend.CartEntryModel;
 import com.tools.models.frontend.CustomerAccountModel;
+import com.tools.models.frontend.CustomerAddressModel;
 import com.tools.models.frontend.ProductModel;
 import com.tools.mongo.MongoConnector;
 import com.tools.mongo.reader.MongoReader;
@@ -54,8 +57,13 @@ public class SearchRandomProductsCheckoutTest extends BaseTest{
 	
 	@Steps
 	public CartSteps cartSteps;
+	
+	@Steps
+	public CheckoutDeliveryAddressSteps checkoutDeliveryAddressSteps;
 	 
 	public CustomerAccountModel customerAccountModel = new CustomerAccountModel();
+	
+	public CustomerAddressModel customerAddressModel = new CustomerAddressModel();
 	
 	public List<ProductModel> productModelList = new ArrayList<>();
 	
@@ -75,6 +83,8 @@ public class SearchRandomProductsCheckoutTest extends BaseTest{
 	
 	public int noOfProductsInCart= 0;
 	
+	public String message = "";
+	
 	@Before
 	public void setUp() {
 		
@@ -86,6 +96,14 @@ public class SearchRandomProductsCheckoutTest extends BaseTest{
 			prop.load(inputStream);
 			customerAccountModel.setEmailAddress(prop.getProperty("email"));
 			customerAccountModel.setPassword(prop.getProperty("password"));
+			message = prop.getProperty("successMessage");
+			customerAddressModel.setFirstName(prop.getProperty("firstName"));
+			customerAddressModel.setLastName(prop.getProperty("lastName"));
+			customerAddressModel.setStreetName(prop.getProperty("streetName"));
+			customerAddressModel.setStreetNumber(prop.getProperty("streetNumber"));
+			customerAddressModel.setZipCode(prop.getProperty("zipCode"));
+			customerAddressModel.setTown(prop.getProperty("town"));
+			customerAddressModel.setPhoneNumber(prop.getProperty("phoneNumber"));
 		}catch(IOException e) {
 			e.printStackTrace();
 		}finally {
@@ -118,7 +136,7 @@ public class SearchRandomProductsCheckoutTest extends BaseTest{
 		    while (price < 25.0) {
 				productModel = productListingSteps.addProductToCart();
 					
-				if (productListingSteps.validatePopupSuccessMessage()) {
+				if (productListingSteps.validatePopupSuccessMessage(message)) {
 					productModelList.add(productModel);
 					price = productListingSteps.calculatePriceOfAddedProducts(productModelList);
 				}else 
@@ -137,7 +155,7 @@ public class SearchRandomProductsCheckoutTest extends BaseTest{
 		cartSteps.validateTotalCartAndTotalValueOfAddedProducts(price, cartCalculatedTotal);
 		cartSteps.validateNoOfAddedProductsWithNoOfCartProducts(productModelList.size(), noOfProductsInCart);
 		cartSteps.pay();
-		
+		checkoutDeliveryAddressSteps.fillInCustomerAddressForm(customerAddressModel);
 	}
 	
 	@After

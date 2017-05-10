@@ -46,18 +46,17 @@ public class ProductListingPage extends AbstractPage{
 	public List<WebElementFacade> getProductsFromListingPage() {
 		List<WebElementFacade> productList = new ArrayList<>();
 		waitForPageToLoad();
-		waitForElementsByCssLocator("div#wrap div.description-wrapper div.product");
-		productList = productsContainer.thenFindAll(By.cssSelector("div.description-wrapper div.product"));
-			
+		waitForElementsByCssLocator("div.product-listing");
+		productList = productsContainer.thenFindAll(By.cssSelector("div.product div.description-wrapper"));
 		return productList;
 	}
 	
 	public List<WebElementFacade> getAvailableProducts(List<WebElementFacade> productList) {
 		List<WebElementFacade> availableProductsList = new ArrayList<>();
 		for (WebElementFacade product : productList) {
-			if(product.find(By.cssSelector("div.stock-and-delivery p")).getAttribute("class").contentEquals("stock-status available")) {
+			if(product.find(By.cssSelector("div.stock-and-delivery div.stock-status")).getAttribute("class").contentEquals("stock-status available")) {
 				availableProductsList.add(product);
-				logger.info("Product " + product.find(By.cssSelector("div.title-wrapper h4")).getText() + " is available");
+				logger.info("Product " + product.find(By.cssSelector("h4.truncate-text")).getText() + " is available");
 			}
 		}
 		
@@ -125,18 +124,18 @@ public class ProductListingPage extends AbstractPage{
 		return productModel;
 	}
 	
-	public boolean validatePopupSuccessMessage() {
+	public boolean validatePopupSuccessMessage(String message) {
 		boolean success = false;
 		if (successPopup.isVisible()) {
-			success = successPopup.getText().contentEquals("Added to cart");
+			success = successPopup.getText().contentEquals(message);
 			waitABit(5000);
 		}
 		return success;
 	}
 	
-	public void validatePopupSuccess() {
+	public void validatePopupSuccess(String message) {
 		if (successPopup.isVisible()) {
-			Assert.assertTrue("product is not available", successPopup.getText().contentEquals("Added to cart"));
+			Assert.assertTrue("product is not available", successPopup.getText().contentEquals(message));
 			waitABit(5000);
 		}
 	}
