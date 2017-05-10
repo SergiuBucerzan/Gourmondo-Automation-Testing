@@ -16,10 +16,9 @@ import com.steps.frontend.LoginSteps;
 import com.steps.frontend.MyAccountSteps;
 import com.steps.frontend.ResetPasswordSteps;
 import com.test.BaseTest;
-import com.tools.constants.GmailConstants;
+import com.tools.constants.JavaMailAPIConstants;
 import com.tools.constants.ProjectResourcesConstants;
-import com.tools.gmail.GmailConnector;
-import com.tools.models.extern.EmailModel;
+import com.tools.email.JavaMailAPIConnector;
 import com.tools.models.frontend.CustomerAccountModel;
 
 import net.serenitybdd.junit.runners.SerenityRunner;
@@ -44,6 +43,8 @@ public class ResetPasswordTest extends BaseTest {
 	public LoginSteps loginSteps;
 	
 	public CustomerAccountModel customerModel = new CustomerAccountModel();
+	
+	public JavaMailAPIConnector emailConnector;
 	
 	String email, password, newPassword, begin, end, emailSubject, forgotPasswordEmailFrom = "";
 	String myAccountMessage = "";
@@ -88,14 +89,8 @@ public class ResetPasswordTest extends BaseTest {
 		customerModel.setEmailAddress(email);
 		customerModel.setPassword(password);
 		
-		EmailModel emailModel = new EmailModel();
-		emailModel.setImapGmailCom(GmailConstants.IMAP_GMAIL);
-		emailModel.setImaps(GmailConstants.IMAPS);
-		emailModel.setMailStoreProtocol(GmailConstants.MAIL_STORE_PROTOCOL);
-		emailModel.setPassword(password);
-		emailModel.setEmailAddress(email);
+		emailConnector = new JavaMailAPIConnector(JavaMailAPIConstants.MAIL_STORE_PROTOCOL, JavaMailAPIConstants.IMAPS, JavaMailAPIConstants.IMAP_GMAIL, email, password);
 		
-		gmailConnector = new GmailConnector(emailModel);
 	}
 	
 	@Test
@@ -105,8 +100,8 @@ public class ResetPasswordTest extends BaseTest {
 		homePageSteps.goToLogin();
 		loginSteps.clickForgotPasswordLink();
 		forgotPasswordSteps.sendEmail(email);
-		String text = gmailConnector.searchEmail(forgotPasswordEmailFrom, emailSubject);
-		String link = gmailConnector.getLinkFromEmail(text, begin, end);
+		String text = emailConnector.searchEmail(forgotPasswordEmailFrom, emailSubject);
+		String link = emailConnector.getLinkFromEmail(text, begin, end);
 		forgotPasswordSteps.goToUrl(link);
 		resetPasswordSteps.resetPassword(newPassword);
 		loginSteps.inputEmail(email);
