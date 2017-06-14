@@ -54,32 +54,23 @@ public class JavaMailAPIConnector {
 	public String searchEmail(String emailAddressFrom, String subject) {
 		String emailText = "";
 		Message[] message = getEmails();
-		boolean messageReceived = false;
 		
-		outerloop:
 		for (int i = 0; i < message.length; i++) {
 			try {
 				Address address =  message[i].getFrom()[0];
 			    if (address.toString().contains(emailAddressFrom) && !(message[i].isSet(Flags.Flag.SEEN))
 							&& message[i].getSubject().contains(subject)) {
-					emailText = getTextFromMessage(message[i]);
-					messageReceived = true;
-					break outerloop;		
+					emailText = getTextFromMessage(message[i]);	
 			    }			 
 			} catch (MessagingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		if(!messageReceived) {
-			System.out.println("Message was not received.");
-		}else
-			System.out.println("Message found!");
-
 		return emailText;
 	}
 	
+	// retrieve text from message
 	private String getTextFromMessage(Message message) {
 		String textFromMessage = "";
 		try {
@@ -90,7 +81,8 @@ public class JavaMailAPIConnector {
 				MimeMultipart mimeMultipart = (MimeMultipart) message.getContent();
 				for (int i = 0; i < mimeMultipart.getCount(); i ++) {
 					BodyPart bodyPart = mimeMultipart.getBodyPart(i);
-					textFromMessage = textFromMessage + "content part: " + bodyPart.getContent().toString() + "\n";
+					String html = (String) bodyPart.getContent().toString();
+					textFromMessage = textFromMessage + "\n" + org.jsoup.Jsoup.parse(html).text();
 				}
 			}
 		} catch (MessagingException | IOException e) {
@@ -99,45 +91,6 @@ public class JavaMailAPIConnector {
 		}
 		return textFromMessage;
 	}
-
-	//retrieve content
-//	private String getTextFromMessage(Message message) throws MessagingException, IOException {
-//		String emailText = "";
-//		if (message.isMimeType("text/plain")) {
-//			emailText = message.getContent().toString();
-//			System.out.println("text/plain");
-//		}else if(message.isMimeType("multipart/*")) {
-//			MimeMultipart mimeMultiPart = (MimeMultipart) message.getContent();
-//			emailText = getTextFromMultiPart(mimeMultiPart);
-//		}
-//		System.out.println("type of mail: " + message.getContentType());
-//		return emailText;
-//	}
-//
-//	//retrieve multipart content
-//	private String getTextFromMultiPart(MimeMultipart mimeMultiPart) throws MessagingException, IOException {
-//		String emailText = "bluf";
-//		int count = mimeMultiPart.getCount();
-//		System.out.println("parts of email is:" + count);
-//		for (int i = 0; i < count; i++) {
-//			BodyPart bodyPart = mimeMultiPart.getBodyPart(i);
-//			if (bodyPart.isMimeType("text/plain")) {
-//				emailText = emailText + "\n" + bodyPart.getContent();
-//				System.out.println("multipart text/plain");
-//				break;
-//			} else if (bodyPart.isMimeType("text/html")) {
-//				String html = (String) bodyPart.getContent().toString();
-//				emailText = emailText + "\n" + org.jsoup.Jsoup.parse(html);
-//				System.out.println("multipart text/html");
-//			} else if (bodyPart.getContent() instanceof MimeMultipart) {
-//				emailText = emailText + getTextFromMultiPart((MimeMultipart) bodyPart.getContent());
-//				System.out.println("multipart instanceofmimemulti");
-//				
-//			}
-//		}
-//
-//		return emailText;
-//	}
 
 	//connecting to gmail inbox
 	private Message[] getEmails() {
