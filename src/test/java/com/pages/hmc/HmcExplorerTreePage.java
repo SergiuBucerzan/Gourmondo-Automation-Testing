@@ -1,5 +1,9 @@
 package com.pages.hmc;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
+
 import com.pages.AbstractPage;
 
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -7,21 +11,31 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class HmcExplorerTreePage extends AbstractPage {
 	
-	@FindBy(id = "Tree/GenericExplorerMenuTreeNode[user]_label")
-	private WebElementFacade user;
-	
-	@FindBy(css = "Tree/GenericExplorerMenuTreeNode[order]_label")
-	private WebElementFacade order;
+
+	@FindBy(css = "table.content_table")
+	private WebElementFacade hmcCategoryTree;
 	
 	
-	public void selectUser() {
-		user.waitUntilVisible();
-		user.click();
+	public void selectHmcCategory(String category) {
+		List<WebElementFacade> categoryList = hmcCategoryTree.thenFindAll(By.cssSelector("tr[id*='Tree/GenericExplorerMenuTreeNode[']"));
+		for (WebElementFacade categoryItem : categoryList) {
+			if (categoryItem.find(By.cssSelector("td:nth-child(2)")).getText().contentEquals(category)) {
+				categoryItem.click();
+				break;
+			}
+		}
+		
 	}
 	
-	public void selectOrder() {
-		order.waitUntilVisible();
-		order.click();
+	public void selectHmcSubCategory(String subcategory) {
+		List<WebElementFacade> subcategoryList = hmcCategoryTree.thenFindAll(By.cssSelector("tr[id*='Tree/GenericLeafNode[']"));
+		for (WebElementFacade subcategoryItem : subcategoryList) {
+			if (subcategoryItem.find(By.cssSelector("td:nth-child(2)")).getText().contentEquals(subcategory)) {
+				subcategoryItem.click();
+				break;
+			}
+		}
+		
 	}
 
 }

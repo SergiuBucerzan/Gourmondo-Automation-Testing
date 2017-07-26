@@ -12,7 +12,7 @@ import org.junit.Assert;
 
 import com.pages.AbstractPage;
 import com.tools.models.frontend.ProductModel;
-import com.tools.utils.StringUtils;
+import com.tools.utils.StringsUtils;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -119,7 +119,7 @@ public class ProductListingPage extends AbstractPage{
 		ProductModel productModel = new ProductModel();
 		productModel.setName(product.find(By.cssSelector("div.title-wrapper h4")).getText());
 		logger.info(product.find(By.cssSelector("div.price p")).getText());
-		productModel.setPrice(StringUtils.cleanPrice(product.find(By.cssSelector("div.price p")).getText()));
+		productModel.setPrice(StringsUtils.cleanPrice(product.find(By.cssSelector("div.price p")).getText()));
 		
 		return productModel;
 	}

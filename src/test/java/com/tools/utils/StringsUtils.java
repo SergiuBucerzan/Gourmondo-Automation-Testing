@@ -4,9 +4,11 @@ import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.test.BaseTest;
 
-public class StringUtils {
+public class StringsUtils {
 
 	public static String cleanPrice(String price) {
 		String value = "";
@@ -36,5 +38,14 @@ public class StringUtils {
 		value = String.valueOf(decimal.doubleValue());
 		
 		return value;
+	}
+	
+	public static String cleanZeroLeadingStrings(String no) {
+		String number = no.trim();
+		if(no.startsWith("0")) {
+			number = no.substring(1, 2);
+		}
+		
+		return number;
 	}
 }

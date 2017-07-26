@@ -9,7 +9,7 @@ import org.openqa.selenium.By;
 import com.pages.AbstractPage;
 import com.tools.models.frontend.CartEntryModel;
 import com.tools.mongo.reader.MongoReader;
-import com.tools.utils.StringUtils;
+import com.tools.utils.StringsUtils;
 import net.serenitybdd.core.annotations.findby.FindBy;
 import net.serenitybdd.core.pages.WebElementFacade;
 
@@ -69,8 +69,8 @@ public class CartPage extends AbstractPage {
 		for (WebElementFacade item : itemsList) {
 			CartEntryModel product = new CartEntryModel();
 			product.setName(item.find(By.cssSelector("div.product-details a")).getText());
-			product.setPrice(StringUtils.cleanPrice(item.find(By.cssSelector("div.product-details span.product-price")).getText()));
-			product.setTotalPrice(StringUtils.cleanPrice(item.find(By.cssSelector("div.amount-price")).getText()));
+			product.setPrice(StringsUtils.cleanPrice(item.find(By.cssSelector("div.product-details span.product-price")).getText()));
+			product.setTotalPrice(StringsUtils.cleanPrice(item.find(By.cssSelector("div.amount-price")).getText()));
 			product.setQuantity(item.find(By.cssSelector("div.quantity input[name='initialQuantity']")).getAttribute("value"));
 
 			productList.add(product);
@@ -101,7 +101,7 @@ public class CartPage extends AbstractPage {
 	}
 
 	public double getCartTotal() {
-		double cartValue = Double.valueOf(StringUtils.cleanPrice(totalPrice.getText()));
+		double cartValue = Double.valueOf(StringsUtils.cleanPrice(totalPrice.getText()));
 
 		return cartValue;
 	}

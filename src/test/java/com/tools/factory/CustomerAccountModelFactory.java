@@ -11,7 +11,7 @@ public class CustomerAccountModelFactory {
 		
 		GregorianCalendar gc = FieldGenerator.getRandomDate();
 		String day = gc.get(GregorianCalendar.DAY_OF_MONTH) + "";
-		String month = gc.get(GregorianCalendar.MONTH) + "";
+		String month = gc.get(GregorianCalendar.MONTH) + 1 + "";
 		String year = gc.get(GregorianCalendar.YEAR) + "";
 		CustomerAccountModel registrationModel = new CustomerAccountModel();
 		registrationModel.setSalutation();

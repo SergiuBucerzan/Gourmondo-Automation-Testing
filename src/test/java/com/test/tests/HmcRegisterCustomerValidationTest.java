@@ -35,7 +35,7 @@ public class HmcRegisterCustomerValidationTest extends BaseTest {
 	@Test
 	public void verifyCustomerRegistrationTest() {
 		hmcSteps.performHmcLogin();
-		hmcSteps.selectCustomer(customerModel);
+		hmcSteps.selectCustomer(customerModel, "User", "Customers");
 		finalData = hmcSteps.getCustomerAccountData();
 		hmcValidations.validateHmcCustomerRegistrationData(initialData, finalData);
 	}

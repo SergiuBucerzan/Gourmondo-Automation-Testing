@@ -23,9 +23,9 @@ public class HmcSteps extends AbstractSteps {
 	}
 	
 	@StepGroup
-	public void selectCustomer(CustomerAccountModel customerModel) {
-		selectUser();
-		selectCustomers();
+	public void selectCustomer(CustomerAccountModel customerModel, String category, String subcategory) {
+		selectHmcCategory(category);;
+		selectHmcSubcategory(subcategory);
 		selectIDComparator();
 		inputIDValue(customerModel.getEmailAddress());
 		clickSearchButton();
@@ -45,16 +45,6 @@ public class HmcSteps extends AbstractSteps {
 	@Step
 	public void clickLoginButton() {
 		getHmcLoginPage().clickLoginButton();
-	}
-	
-	@Step
-	public void selectUser() {
-		getHmcExplorerTreePage().selectUser();
-	}
-	
-	@Step
-	public void selectCustomers() {
-		getHmcUserPage().selectCustomers();
 	}
 	
 	@Step
@@ -78,8 +68,13 @@ public class HmcSteps extends AbstractSteps {
 	}
 	
 	@Step
-	public void selectOrder() {
-		getHmcExplorerTreePage().selectOrder();
+	public void selectHmcCategory(String category) {
+		getHmcExplorerTreePage().selectHmcCategory(category);;
+	}
+	
+	@Step
+	public void selectHmcSubcategory(String subcategory) {
+		getHmcExplorerTreePage().selectHmcCategory(subcategory);;
 	}
 	
 	public HmcCustomerAccountModel getCustomerAccountData() {

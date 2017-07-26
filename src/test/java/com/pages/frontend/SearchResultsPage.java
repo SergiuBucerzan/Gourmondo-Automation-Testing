@@ -12,7 +12,7 @@ import com.pages.AbstractPage;
 import com.test.BaseTest;
 import com.tools.models.frontend.ProductModel;
 import com.tools.mongo.reader.MongoReader;
-import com.tools.utils.StringUtils;
+import com.tools.utils.StringsUtils;
 
 
 public class SearchResultsPage extends AbstractPage {
@@ -28,7 +28,7 @@ public class SearchResultsPage extends AbstractPage {
 		
 		for (WebElement result : productList) {
 			ProductModel product = new ProductModel();
-			String price = StringUtils.cleanPrice(result.findElement(By.cssSelector("div.price")).getText());
+			String price = StringsUtils.cleanPrice(result.findElement(By.cssSelector("div.price")).getText());
 			String name = result.findElement(By.cssSelector("h4.truncate-text")).getText();
 			product.setName(name);
 			product.setPrice(price);

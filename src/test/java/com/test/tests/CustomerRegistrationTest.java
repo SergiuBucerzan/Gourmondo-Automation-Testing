@@ -44,7 +44,7 @@ public class CustomerRegistrationTest extends BaseTest{
 	@Before
 	public void setUp() {
 		CustomerAccountModelFactory registrationModelFactory = new CustomerAccountModelFactory();
-		registrationFormModel = registrationModelFactory.getRegistrationModel(); 		
+		registrationFormModel = registrationModelFactory.getRegistrationModel();
 		MongoConnector.cleanDatabase(MongoConstants.CUSTOMER_DB);
 	}
 	

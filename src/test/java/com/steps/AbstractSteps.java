@@ -15,11 +15,9 @@ import com.pages.frontend.ResetPasswordPage;
 import com.pages.frontend.SearchResultsPage;
 import com.pages.hmc.HmcExplorerTreePage;
 import com.pages.hmc.HmcLoginPage;
-import com.pages.hmc.order.HmcOrderPage;
-import com.pages.hmc.order.HmcOrdersEditorPage;
-import com.pages.hmc.order.HmcOrdersResultsPage;
-import com.pages.hmc.order.HmcOrdersSearchPage;
-import com.pages.hmc.user.HmcUserPage;
+import com.pages.hmc.order.orders.HmcOrdersEditorPage;
+import com.pages.hmc.order.orders.HmcOrdersResultsPage;
+import com.pages.hmc.order.orders.HmcOrdersSearchPage;
 import com.pages.hmc.user.customers.HmcCustomersEditorPage;
 import com.pages.hmc.user.customers.HmcCustomersResultsPage;
 import com.pages.hmc.user.customers.HmcCustomersSearchPage;
@@ -109,10 +107,6 @@ public class AbstractSteps extends ScenarioSteps{
 		return getPages().currentPageAt(HmcExplorerTreePage.class);
 	}
 	
-	public HmcUserPage getHmcUserPage() {
-		return getPages().currentPageAt(HmcUserPage.class);
-	}
-	
 	public HmcCustomersEditorPage getHmcCustomersEditorPage() {
 		return getPages().currentPageAt(HmcCustomersEditorPage.class);
 	}
@@ -123,10 +117,6 @@ public class AbstractSteps extends ScenarioSteps{
 	
 	public HmcCustomersResultsPage getHmcCustomersResultsPage() {
 		return getPages().currentPageAt(HmcCustomersResultsPage.class);
-	}
-	
-	public HmcOrderPage getHmcOrderPage() {
-		return getPages().currentPageAt(HmcOrderPage.class);
 	}
 	
 	public HmcOrdersEditorPage getHmcOrdersEditorPage() {

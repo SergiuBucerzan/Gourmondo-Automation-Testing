@@ -89,8 +89,8 @@ public class CustomerAccountModel extends CustomerAccountModelFactory{
 	public void setSalutation() {
 		Random random = new Random();
 		List<String> salutationList = new ArrayList<>();
-		salutationList.add("Mr.");
-		salutationList.add("Mrs.");
+		salutationList.add("Frau");
+		salutationList.add("Herr");
 		salutation = salutationList.get(random.nextInt(salutationList.size()));	
 	}
 	

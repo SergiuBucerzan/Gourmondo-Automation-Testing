@@ -1,12 +1,13 @@
 package com.pages.frontend;
 
 import java.util.List;
-import java.util.Random;
 
+import org.junit.Assert;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import com.pages.AbstractPage;
-import com.tools.models.frontend.CustomerAccountModel;
+import com.tools.utils.StringsUtils;
 
 import net.serenitybdd.core.annotations.findby.By;
 import net.serenitybdd.core.annotations.findby.FindBy;
@@ -15,8 +16,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 
 public class CustomerRegistrationPage extends AbstractPage {
 	
-	@FindBy(css = "div#registerClientForm-titleCode")
-	private WebElementFacade salutation;
+	@FindBy(css = "form#registerClientForm div[class*='btn-group bootstrap-select  form-control control-value select-picker-wrapper']")
+	private WebElementFacade salutation;	
 	
 	@FindBy(css = "input#registerClientForm-firstName")
 	private WebElementFacade firstNameInput;
@@ -27,13 +28,13 @@ public class CustomerRegistrationPage extends AbstractPage {
 	@FindBy(css = "input#registerClientForm-email")
 	private WebElementFacade emailAddressInput;
 	
-	@FindBy(css = "section.SelectDate:nth-child(1)")
+	@FindBy(css = "form#registerClientForm div[class='form-group-composed form-group-1-to-3'] div[class*='form-group js-form-input-validation ']:nth-child(2)")
 	private WebElementFacade birthdayDay;
 	
-	@FindBy(css = "section.SelectDate:nth-child(2)")
+	@FindBy(css = "form#registerClientForm div[class='form-group-composed form-group-1-to-3'] div[class*='form-group js-form-input-validation ']:nth-child(3)")
 	private WebElementFacade birthdayMonth;
 	
-	@FindBy(css = "section.SelectDate:nth-child(3)")
+	@FindBy(css = "form#registerClientForm div[class='form-group-composed form-group-1-to-3'] div[class*='form-group js-form-input-validation ']:nth-child(4)")
 	private WebElementFacade birthdayYear;
 	
 	@FindBy(css = "input#registerClientForm-password")
@@ -55,9 +56,10 @@ public class CustomerRegistrationPage extends AbstractPage {
 	
 	
 	
+	
 	public void selectSalutation(String gender) {
 		salutation.click();
-		List<WebElementFacade> salutationList = salutation.thenFindAll(By.cssSelector("div.dropdown-menu ul li a"));
+		List<WebElementFacade> salutationList = salutation.thenFindAll(By.cssSelector("div.dropdown-menu ul li"));
 		for (WebElementFacade item : salutationList) {
 			if (item.getTextValue().trim().contentEquals(gender)) {
 				item.click();
@@ -81,18 +83,25 @@ public class CustomerRegistrationPage extends AbstractPage {
 		birthdayDay.click();
 		List<WebElementFacade> dayList = birthdayDay.thenFindAll(By.cssSelector("ul li a span"));
 		for (WebElementFacade item : dayList) {
-			if (item.getTextValue().trim().contains(day)) {
+			String no = StringsUtils.cleanZeroLeadingStrings(item.getText());
+			System.out.println(item.getText() + " --- " + day);
+			if (no.contentEquals(day)) {
 				item.click();
+				break;
 			}				
 		}
+		
 	}
 	
 	public void selectMonth(String month) {
 		birthdayMonth.click();
 		List<WebElementFacade> monthList = birthdayMonth.thenFindAll(By.cssSelector("ul li a span"));
 		for (WebElementFacade item : monthList) {
-			if (item.getTextValue().trim().contains(month)) {
+			String no = StringsUtils.cleanZeroLeadingStrings(item.getText());
+			System.out.println(item.getText() + " --- " + month);
+			if (no.contentEquals(month)) {
 				item.click();
+				break;
 			}				
 		}
 	}
@@ -101,8 +110,11 @@ public class CustomerRegistrationPage extends AbstractPage {
 		birthdayYear.click();
 		List<WebElementFacade> yearList = birthdayYear.thenFindAll(By.cssSelector("ul li a span"));
 		for (WebElementFacade item : yearList) {
-			if (item.getTextValue().trim().contains(year)) {
+			String no = StringsUtils.cleanZeroLeadingStrings(item.getText());
+			System.out.println(item.getText() + " --- " + year);
+			if (no.contentEquals(year)) {
 				item.click();
+				break;
 			}				
 		}
 	}
